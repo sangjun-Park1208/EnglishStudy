@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
 
                 android:gravity="center"
-                android:text="Word"
+                android:text="Stage"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
 
                 android:gravity="center"
-                android:text="meaning"
+                android:text="complete or not"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
