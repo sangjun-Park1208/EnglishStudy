@@ -14,6 +14,6 @@ public class MainActivity extends AppCompatActivity {
         //오늘의 달성률
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(50);
-//
+
     }
 }
