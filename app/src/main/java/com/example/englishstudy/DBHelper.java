@@ -27,7 +27,6 @@ public class DBHelper extends SQLiteOpenHelper {
         //컬럼 규약
         db.execSQL("CREATE TABLE IF NOT EXISTS WordList(id INTEGER PRIMARY KEY AUTOINCREMENT, day INTEGER NOT NULL, wordNum INTEGER NOT NULL,isMark INTEGER NOT NULL, word TEXT NOT NULL,meaning TEXT NOT NULL)");
 
-
     }
 
     @Override

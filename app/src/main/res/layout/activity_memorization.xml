@@ -44,6 +44,7 @@
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/word_list" />
+
         </LinearLayout>
 
 
