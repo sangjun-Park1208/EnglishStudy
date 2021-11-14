@@ -11,8 +11,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //오늘의 달성률
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(50);
+
     }
 }
