@@ -13,10 +13,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/neodgm"
         android:text="오늘의 암기왕!"
         android:textColor="@color/black"
         android:textSize="50sp"
+        android:fontFamily="@font/neodgm"
         android:layout_gravity="center|top"
         android:layout_margin="20dp"
         />
@@ -30,20 +30,36 @@
         android:gravity="center"
         >
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="오늘의 달성률"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/neodgm"
+            android:layout_margin="10dp"/>
+
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:max="100"
+            />
 
         <Button
             android:id="@+id/memorization1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="암기하기"
+            android:textSize="20sp"
+            android:fontFamily="@font/neodgm"
             />
 
         <LinearLayout
@@ -51,21 +67,27 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:layout_margin="20dp">
+            android:layout_margin="10dp">
 
             <Button
                 android:id="@+id/test1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
                 android:text="Test"
-                android:layout_weight="1"/>
+                android:textSize="20sp"
+                android:fontFamily="@font/neodgm"/>
 
             <Button
                 android:id="@+id/review1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="복습하기"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:fontFamily="@font/neodgm"
+                android:layout_marginLeft="10dp"
+                android:textSize="20sp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -83,21 +105,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="암기하기" />
+            android:text="암기하기"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/neodgm"/>
 
         <Button
             android:id="@+id/test2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Test" />
+            android:text="Test"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/neodgm"/>
 
         <Button
             android:id="@+id/review2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="복습하기" />
+            android:text="복습하기"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/neodgm"/>
     </LinearLayout>
 
 
