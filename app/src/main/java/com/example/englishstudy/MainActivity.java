@@ -15,5 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(50);
+        //commit
     }
 }
