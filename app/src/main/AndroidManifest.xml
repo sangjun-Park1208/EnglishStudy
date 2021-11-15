@@ -11,12 +11,12 @@
         android:theme="@style/Theme.EnglishStudy">
         <activity
             android:name=".VocaLearn"
-            android:label="VocaLearn"
-            android:exported="false" />
+            android:exported="false"
+            android:label="VocaLearn" />
         <activity
             android:name=".Memorization"
-            android:label="Memorization"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Memorization" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
