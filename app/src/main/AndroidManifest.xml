@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishStudy">
         <activity
-            android:name=".TestListActivity"
+            android:name=".Test.TestList"
             android:exported="false"
             android:label="TestListActivity" />
         <activity
-            android:name=".VocaLearn"
+            android:name=".Review.ReviewActivity"
             android:exported="false"
             android:label="VocaLearn" />
         <activity
-            android:name=".Memorization"
+            android:name=".Memorization.Memorization"
             android:exported="false"
             android:label="Memorization" />
         <activity android:name=".MainActivity">

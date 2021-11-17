@@ -1,27 +1,29 @@
-package com.example.englishstudy;
+package com.example.englishstudy.Test;
 
-import android.app.AlertDialog;
+
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.englishstudy.R;
+import com.example.englishstudy.global.DBHelper;
+import com.example.englishstudy.global.WordItem;
+
 import java.util.ArrayList;
 
-public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHolder>
+public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
 {
 
     private ArrayList<WordItem> mWordItems = new ArrayList<WordItem>();
     private Context mContext;
     private DBHelper mDBHelper;
 
-    public TestListAdapter(ArrayList<WordItem> mWordItems, Context mContext) {
+    public TestAdapter(ArrayList<WordItem> mWordItems, Context mContext) {
         this.mWordItems = mWordItems;
         this.mContext = mContext;
         mDBHelper = new DBHelper(mContext);
@@ -41,10 +43,10 @@ public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         String day = "Day"+ Integer.toString(mWordItems.get(position).getDay());
-        holder.text_day.setText(day);
-        holder.text_state.setText(mWordItems.get(position).getMeaning());
+        viewHolder.text_day.setText(day);
+        viewHolder.text_state.setText(mWordItems.get(position).getMeaning());
     }
 
     @Override
@@ -66,6 +68,5 @@ public class TestListAdapter extends RecyclerView.Adapter<TestListAdapter.ViewHo
 
         }
     }
-
 
 }

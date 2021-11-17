@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.example.englishstudy.Review.ReviewActivity;
+import com.example.englishstudy.Test.TestList;
+import com.example.englishstudy.global.DBHelper;
+import com.example.englishstudy.global.WordItem;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
         test1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 startActivity(new Intent(view.getContext(), TestListActivity.class));
+                 startActivity(new Intent(view.getContext(), TestList.class));
             }
         });
         test2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), TestListActivity.class));
+                startActivity(new Intent(view.getContext(), TestList.class));
             }
         });
 
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(),VocaLearn.class));
+                startActivity(new Intent(view.getContext(), ReviewActivity.class));
             }
         });
 

@@ -1,6 +1,7 @@
 package com.example.englishstudy;
 
-import android.database.sqlite.SQLiteDatabase;
+import com.example.englishstudy.global.DBHelper;
+import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
 

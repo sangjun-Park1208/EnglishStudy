@@ -1,4 +1,4 @@
-package com.example.englishstudy;
+package com.example.englishstudy.Memorization;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.englishstudy.R;
 
 import java.util.ArrayList;
 import java.util.List;

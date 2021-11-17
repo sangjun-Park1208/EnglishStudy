@@ -1,4 +1,4 @@
-package com.example.englishstudy;
+package com.example.englishstudy.global;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
 
@@ -41,7 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         //Word에서 단어를 가져온다 writeData를 내림차순해서
-        Cursor cursor = db.rawQuery("SELECT * FROM WordList ORDER BY wordNum DESC",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM WordList ORDER BY id DESC",null);
 
         //조회한 데이터가 있을 때 내부 수행
         if(cursor.getCount() != 0){

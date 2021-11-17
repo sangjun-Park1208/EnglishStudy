@@ -1,4 +1,4 @@
-package com.example.englishstudy;
+package com.example.englishstudy.global;
 
 public class WordItem {
     private int id;

@@ -1,6 +1,9 @@
-package com.example.englishstudy;
+package com.example.englishstudy.Memorization;
 
 import android.content.Context;
+
+import com.example.englishstudy.global.DBHelper;
+import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
 

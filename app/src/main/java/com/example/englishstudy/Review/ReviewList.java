@@ -1,29 +1,19 @@
-package com.example.englishstudy;
+package com.example.englishstudy.Review;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.example.englishstudy.R;
+import com.example.englishstudy.global.DBHelper;
+import com.example.englishstudy.global.Stage_Item;
+import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class VocaReviewDay extends AppCompatActivity {
+public class ReviewList extends AppCompatActivity {
     private DBHelper mDBHelper;
     private ArrayList<WordItem> mWorditem;
     private int check=1;
@@ -48,16 +38,16 @@ public class VocaReviewDay extends AppCompatActivity {
         recyclerView.setAdapter(mReviewAdapter);
 
 
-        ArrayList<ReviewDayItem> mreviewDayItems=new ArrayList<>();
+        ArrayList<Stage_Item> mreviewDayItems=new ArrayList<>();
         for(int i=1;i<=30;i++){//스테이지랑 complete 여부 체크
             for(int j=0;j<30;j++){
                 if(mWorditem.get(i).getIsMark()==0)
                     check=0;
             }
             if(check==1)//
-                mreviewDayItems.add(new ReviewDayItem("Stage "+i,"complete"));
+                mreviewDayItems.add(new Stage_Item("Stage "+i,"complete"));
             else//
-                mreviewDayItems.add(new ReviewDayItem("Stage "+i,"challenge"));
+                mreviewDayItems.add(new Stage_Item("Stage "+i,"challenge"));
             check=1;
         }
         mReviewAdapter.setmDayList(mreviewDayItems);

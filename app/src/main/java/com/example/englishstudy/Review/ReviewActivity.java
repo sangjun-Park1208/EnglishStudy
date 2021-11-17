@@ -1,20 +1,20 @@
-package com.example.englishstudy;
+package com.example.englishstudy.Review;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.englishstudy.MainActivity;
+import com.example.englishstudy.R;
+import com.example.englishstudy.global.DBHelper;
+import com.example.englishstudy.global.WordItem;
+
 import java.util.ArrayList;
 
-public class
-VocaLearn extends AppCompatActivity{
+public class ReviewActivity extends AppCompatActivity{
 
     private TextView mword;
     private TextView mmeaning;

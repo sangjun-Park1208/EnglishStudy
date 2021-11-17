@@ -1,4 +1,4 @@
-package com.example.englishstudy;
+package com.example.englishstudy.Review;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,13 +8,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
+import com.example.englishstudy.R;
+import com.example.englishstudy.global.Stage_Item;
 
 import java.util.ArrayList;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
 
-    private ArrayList<ReviewDayItem> mDayList;
+    private ArrayList<Stage_Item> mDayList;
 
     @NonNull
     @Override
@@ -28,7 +29,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         holder.onBind(mDayList.get(position));
     }
 
-    public void setmDayList(ArrayList<ReviewDayItem> list){
+    public void setmDayList(ArrayList<Stage_Item> list){
         this.mDayList=list;
         notifyDataSetChanged();
     }
@@ -49,9 +50,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             p_f=(TextView) itemView.findViewById(R.id.tv_address_review);
         }
 
-        public void onBind(ReviewDayItem reviewDayItem) {
-            stage.setText(reviewDayItem.getStage());
-            p_f.setText(reviewDayItem.getRunnig());
+        public void onBind(Stage_Item stageItem) {
+            stage.setText(stageItem.getStage());
+            p_f.setText(stageItem.getRunning());
         }
     }
 }
