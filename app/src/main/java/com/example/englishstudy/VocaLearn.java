@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class VocaLearn extends AppCompatActivity{
+public class
+VocaLearn extends AppCompatActivity{
 
     private TextView mword;
     private TextView mmeaning;
