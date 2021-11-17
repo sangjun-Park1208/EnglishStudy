@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<WordItem> mWorditem;
     private ProgressBar progressBar;
     private Button mbutton;
+    private Button test1;
+    private Button test2;
 
     //다른 Activity에서 변수 접근하기
     public static Context context_main;
@@ -29,18 +31,35 @@ public class MainActivity extends AppCompatActivity {
 
         context_main=this;//다른 Activity에서 변수 접근하기
 
-        setInit();
+        //setInit();
 
         //오늘의 달성률
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(50);
+
+        //test 화면 넘어가기
+        test1 = findViewById(R.id.test1);
+        test2 = findViewById(R.id.test2);
+
+        test1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 startActivity(new Intent(view.getContext(), TestListActivity.class));
+            }
+        });
+        test2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), TestListActivity.class));
+            }
+        });
 
         //버튼 누르면 다른 화면으로
         mbutton=(Button)findViewById(R.id.memorization1);
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(),VocaReviewDay.class));
+                startActivity(new Intent(view.getContext(),VocaLearn.class));
             }
         });
 
@@ -48,15 +67,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     private void setInit(){
         mDBHelper=new DBHelper(this);
         mWorditem=new ArrayList<>();
 
-        mWorditem=mDBHelper.getWordList();
-        if(mWorditem.size()!=0) return;
-
-        mDBHelper.InsertWord(1,1,0,"apple","사과");
-        mDBHelper.InsertWord(1,2,0,"banana","바나나");
+        mDBHelper.InsertWord(1,1,1,"apple","사과");
+        mDBHelper.InsertWord(1,2,1,"banana","바나나");
         mDBHelper.InsertWord(1,3,0,"grape","포도");
         mDBHelper.InsertWord(1,4,0,"cherry","체리");
         mDBHelper.InsertWord(1,5,0,"dog","강아지");
