@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         context_main=this;//다른 Activity에서 변수 접근하기
 
+        setInit();
+
         //오늘의 달성률
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(50);
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setInit();
+
 
     }
 

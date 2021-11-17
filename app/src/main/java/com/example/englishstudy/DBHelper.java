@@ -60,7 +60,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 wordItem.setIsMark(isMark);
                 wordItem.setWord(word);
                 wordItem.setMeaning(meaning);
-
+                wordItems.add(wordItem);
 
             }
         }
