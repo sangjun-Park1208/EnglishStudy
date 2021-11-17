@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.example.englishstudy.Review.ReviewActivity;
+import com.example.englishstudy.Review.ReviewList;
 import com.example.englishstudy.Test.TestList;
 import com.example.englishstudy.global.DBHelper;
 import com.example.englishstudy.global.WordItem;
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         context_main=this;//다른 Activity에서 변수 접근하기
 
-        //setInit();
+        setInit();
 
         //오늘의 달성률
         progressBar = findViewById(R.id.progressBar);
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         test2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), TestList.class));
+                startActivity(new Intent(view.getContext(), ReviewList.class));
             }
         });
 
@@ -63,26 +65,22 @@ public class MainActivity extends AppCompatActivity {
         mbutton=(Button)findViewById(R.id.memorization1);
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), ReviewActivity.class));
+            public void onClick(View view) {//암기하기 눌렀을때
+                startActivity(new Intent(view.getContext(), ReviewList.class));
             }
         });
-
-
-
     }
-
 
 
     private void setInit(){
         mDBHelper=new DBHelper(this);
         mWorditem=new ArrayList<>();
+        if(mWorditem.size()!=0) return;//단어가 db에 이미 있으면 setInit 종료
 
-        mDBHelper.InsertWord(1,1,1,"apple","사과");
-        mDBHelper.InsertWord(1,2,1,"banana","바나나");
-        mDBHelper.InsertWord(1,3,0,"grape","포도");
-        mDBHelper.InsertWord(1,4,0,"cherry","체리");
-        mDBHelper.InsertWord(1,5,0,"dog","강아지");
+        //단어 끌고 오기
+        VocaList vocaList=new VocaList();
+        for(int i=0;i<900;i++){
+            mDBHelper.InsertWord(1,1,0,vocaList.getWord(i),vocaList.getMeaning(i));//isMark,word,meaning 순으로
+        }
     }
-
 }

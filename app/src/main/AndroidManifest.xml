@@ -16,7 +16,11 @@
         <activity
             android:name=".Review.ReviewActivity"
             android:exported="false"
-            android:label="VocaLearn" />
+            android:label="RevieActivity" />
+        <activity
+            android:name=".Review.ReviewList"
+            android:exported="false"
+            android:label="ReviewList" />
         <activity
             android:name=".Memorization.Memorization"
             android:exported="false"

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.englishstudy.R;
 import com.example.englishstudy.global.DBHelper;
@@ -20,14 +21,16 @@ public class ReviewList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_review_day);
 
-        mWorditem=mDBHelper.getWordList();//DB 아이템들 끌고오기
-//        for(int i=0;i<30;i++) {//30개 확인
-//            if(mWorditem.get(i).getIsMark()==0)
-//
-//        }
+
+
+//        mDBHelper=new DBHelper(this);
+//        mWorditem=new ArrayList<>();
+//        mWorditem=mDBHelper.getWordList();//DB 아이템들 끌고오기
 
         RecyclerView recyclerView = findViewById(R.id.day_list_review);
 
@@ -40,15 +43,15 @@ public class ReviewList extends AppCompatActivity {
 
         ArrayList<Stage_Item> mreviewDayItems=new ArrayList<>();
         for(int i=1;i<=30;i++){//스테이지랑 complete 여부 체크
-            for(int j=0;j<30;j++){
-                if(mWorditem.get(i).getIsMark()==0)
-                    check=0;
-            }
-            if(check==1)//
+//            for(int j=0;j<30;j++){
+//                if(mWorditem.get(i).getIsMark()==0)
+//                    check=0;
+//            }
+//            if(check==1)//
                 mreviewDayItems.add(new Stage_Item("Stage "+i,"complete"));
-            else//
-                mreviewDayItems.add(new Stage_Item("Stage "+i,"challenge"));
-            check=1;
+//            else//
+//                mreviewDayItems.add(new Stage_Item("Stage "+i,"challenge"));
+//            check=1;
         }
         mReviewAdapter.setmDayList(mreviewDayItems);
     }
