@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishStudy">
         <activity
+            android:name=".VocaReviewDay"
+            android:exported="true" />
+        <activity
             android:name=".VocaLearn"
             android:exported="false"
             android:label="VocaLearn" />

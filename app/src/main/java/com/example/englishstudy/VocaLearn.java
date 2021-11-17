@@ -46,25 +46,20 @@ public class VocaLearn extends AppCompatActivity{
         bt1.setOnClickListener(new View.OnClickListener() {//O버튼 눌렀을때
             @Override
             public void onClick(View view) {
-                mword.setText(mWordItem.get(index++).getWord().toString());
-                mmeaning.setText(mWordItem.get(index++).getMeaning().toString());
-                //index++;
-                //mword.setText();
-                //mmeaing.setText();
-                //mark=1 코드 추가
-
+                mWordItem.get(index).setIsMark(1);
+                index++;
+                mword.setText(mWordItem.get(index).getWord().toString());
+                mmeaning.setText(mWordItem.get(index).getMeaning().toString());
             }
         });
         bt2=(Button) findViewById(R.id.unknown);
         bt2.setOnClickListener(new View.OnClickListener() {//X버튼 눌렀을때
             @Override
             public void onClick(View view) {
-                mword.setText(mWordItem.get(index++).getWord().toString());
-                mmeaning.setText(mWordItem.get(index++).getMeaning().toString());
-                //index++
-                //mword.setText();
-                //mmeaing.setText();
-                //mark=0 코드 추가
+                mWordItem.get(index).setIsMark(0);
+                index++;
+                mword.setText(mWordItem.get(index).getWord().toString());
+                mmeaning.setText(mWordItem.get(index).getMeaning().toString());
             }
         });
 

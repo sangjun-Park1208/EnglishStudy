@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(),VocaLearn.class));
+                startActivity(new Intent(view.getContext(),VocaReviewDay.class));
             }
         });
 
@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
     private void setInit(){
         mDBHelper=new DBHelper(this);
         mWorditem=new ArrayList<>();
+
+        mWorditem=mDBHelper.getWordList();
+        if(mWorditem.size()!=0) return;
 
         mDBHelper.InsertWord(1,1,0,"apple","사과");
         mDBHelper.InsertWord(1,2,0,"banana","바나나");
