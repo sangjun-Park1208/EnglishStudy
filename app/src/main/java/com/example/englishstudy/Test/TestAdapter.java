@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.englishstudy.R;
 import com.example.englishstudy.global.DBHelper;
 import com.example.englishstudy.global.Stage_Item;
-import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
 
+//RecyclerView 를 위한 Adapter
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
 {
 
@@ -66,7 +66,28 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
             text_day = itemView.findViewById(R.id.text_day);
             text_state = itemView.findViewById(R.id.text_state);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int curPos = getAdapterPosition();
+                    if(curPos!= RecyclerView.NO_POSITION){
+                        //RecyclerView Item 클릭 시 TestList.class 로 전달
+                        onItemClickListener.onItemClick(v,curPos, mContext);
+
+                    }
+                }
+            });
+
         }
+    }
+
+    //RecyclerView Item 클릭 이벤트를 TestList.class 에서 처리하기 위한 Interface
+    public interface OnItemClickListener{
+        void onItemClick(View view, int curPos, Context mContext);
+    }
+    private OnItemClickListener onItemClickListener = null;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
     }
 
 }
