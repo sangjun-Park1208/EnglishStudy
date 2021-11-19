@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishstudy.R;
 import com.example.englishstudy.global.DBHelper;
+import com.example.englishstudy.global.Stage_Item;
 import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
@@ -19,12 +20,12 @@ import java.util.ArrayList;
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
 {
 
-    private ArrayList<WordItem> mWordItems = new ArrayList<WordItem>();
+    private ArrayList<Stage_Item> mDayList = new ArrayList<Stage_Item>();
     private Context mContext;
     private DBHelper mDBHelper;
 
-    public TestAdapter(ArrayList<WordItem> mWordItems, Context mContext) {
-        this.mWordItems = mWordItems;
+    public TestAdapter(ArrayList<Stage_Item> mDayList, Context mContext) {
+        this.mDayList = mDayList;
         this.mContext = mContext;
         mDBHelper = new DBHelper(mContext);
     }
@@ -44,14 +45,13 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        String day = "Day"+ Integer.toString(mWordItems.get(position).getDay());
-        viewHolder.text_day.setText(day);
-        viewHolder.text_state.setText(mWordItems.get(position).getMeaning());
+        viewHolder.text_day.setText(mDayList.get(position).getStage());
+        viewHolder.text_state.setText(mDayList.get(position).getRunning());
     }
 
     @Override
     public int getItemCount() {
-        return mWordItems.size();
+        return mDayList.size();
     }
 
 
