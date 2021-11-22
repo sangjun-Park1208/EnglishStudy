@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         context_main=this;//다른 Activity에서 변수 접근하기
 
-        //setInit();
+        //setInit();//DB 세팅
 
         //오늘의 달성률
         progressBar = findViewById(R.id.progressBar);
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         //단어 끌고 오기
         VocaList vocaList=new VocaList();
-        for(int i=0;i<900;i++){
+        for(int i=0;i<10;i++){
             mDBHelper.InsertWord(1,1,1,vocaList.getWord(i),vocaList.getMeaning(i));//isMark,word,meaning 순으로
         }
     }

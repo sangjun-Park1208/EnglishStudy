@@ -36,6 +36,7 @@ public class ReviewActivity extends AppCompatActivity{
         mWordItem=mDBHelper.getWordList();//DB 아이템들 끌고오기
 
 
+        //단어 화면에 띄우기
         mword=(TextView) findViewById(R.id.word);
         mmeaning=(TextView) findViewById(R.id.meaning);
         mword.setText(mWordItem.get(index).getWord());

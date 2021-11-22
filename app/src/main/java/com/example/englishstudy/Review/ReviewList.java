@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.englishstudy.R;
 import com.example.englishstudy.global.DBHelper;
@@ -48,11 +50,18 @@ public class ReviewList extends AppCompatActivity {
 //                    check=0;
 //            }
 //            if(check==1)//
-                mreviewDayItems.add(new Stage_Item("Stage "+i,"complete"));
+                mreviewDayItems.add(new Stage_Item("Stage "+i,"complete"));//Stage 아이템 추가
 //            else//
 //                mreviewDayItems.add(new Stage_Item("Stage "+i,"challenge"));
 //            check=1;
         }
         mReviewAdapter.setmDayList(mreviewDayItems);
+
+        mReviewAdapter.setOnItemClicklistener(new ReviewOnStageItemClickListener() {
+            @Override
+            public void onItemClick(ReviewAdapter.ViewHolder holder, View view, int position) {
+                startActivity(new Intent(view.getContext(), ReviewActivity.class));
+            }
+        });
     }
 }
