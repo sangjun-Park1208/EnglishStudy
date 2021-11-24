@@ -33,19 +33,25 @@
     <TextView
         android:id="@+id/word"
         android:layout_width="200sp"
-        android:layout_height="wrap_content"
+        android:layout_height="100sp"
         android:layout_weight="10"
+        android:paddingTop="30sp"
         android:text="apple"
+        android:maxLines="1"
+        android:autoSizeTextType="uniform"
         android:fontFamily="@font/neodgm"
         android:textSize="60sp" />
 
     <TextView
         android:id="@+id/meaning"
         android:layout_width="200sp"
-        android:layout_height="wrap_content"
+        android:layout_height="100sp"
         android:layout_marginTop="20dp"
         android:layout_weight="10"
+        android:paddingTop="30sp"
         android:text="사과"
+        android:maxLines="1"
+        android:autoSizeTextType="uniform"
         android:fontFamily="@font/neodgm"
         android:textSize="60sp" />
 

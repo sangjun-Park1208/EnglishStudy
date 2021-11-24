@@ -24,24 +24,18 @@ public class ReviewList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_review_day);
-
-
 
 //        mDBHelper=new DBHelper(this);
 //        mWorditem=new ArrayList<>();
 //        mWorditem=mDBHelper.getWordList();//DB 아이템들 끌고오기
 
         RecyclerView recyclerView = findViewById(R.id.day_list_review);
-
         ReviewAdapter mReviewAdapter=new ReviewAdapter();
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mReviewAdapter);
-
 
         ArrayList<Stage_Item> mreviewDayItems=new ArrayList<>();
         for(int i=1;i<=30;i++){//스테이지랑 complete 여부 체크
