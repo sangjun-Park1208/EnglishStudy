@@ -22,4 +22,5 @@
         android:id="@+id/recyclerView"
         android:layout_margin="20dp"
         android:layout_weight="1"/>
+
 </LinearLayout>
