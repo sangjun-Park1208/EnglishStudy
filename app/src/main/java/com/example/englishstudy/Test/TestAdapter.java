@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishstudy.R;
@@ -29,9 +30,6 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
     private int oldPosition = -1;
     private int selectedPosition = -1;
 
-    private Button bt_SELECT;
-    private Button bt_UP;
-    private Button bt_DOWN;
 
     private ArrayList<Stage_Item> mDayList = new ArrayList<Stage_Item>();
     private Context mContext;
@@ -61,7 +59,6 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
         viewHolder.text_day.setText(mDayList.get(position).getStage());
         viewHolder.text_state.setText(mDayList.get(position).getRunning());
 
-
         //isSelected(viewHolder,position);
        //selectOnKey(viewHolder,position);
     }
@@ -75,8 +72,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView text_day;
         private TextView text_state;
-        private Button bt_SELECT;
-
+        private CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,30 +106,29 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
         this.onItemClickListener = onItemClickListener;
     }
 
-//
-//    public void isSelected(ViewHolder viewHolder, int position){
-//        if(selectedPosition == position){
-//            viewHolder.itemView.setBackgroundColor(Color.GRAY);
-//        }
-//        else{
-//            viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
-//        }
-//
-//        viewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                oldPosition = selectedPosition;
-//                selectedPosition = position;
-//
-//                notifyItemChanged(oldPosition);
-//                notifyItemChanged(selectedPosition);
-//                return false;
-//            }
-//
-//        });
-//
-//    }
-//
+    public void isSelected(ViewHolder viewHolder, int position){
+        if(selectedPosition == position){
+            viewHolder.itemView.setBackgroundColor(Color.GRAY);
+        }
+        else{
+            viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        viewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                oldPosition = selectedPosition;
+                selectedPosition = position;
+
+                notifyItemChanged(oldPosition);
+                notifyItemChanged(selectedPosition);
+                return false;
+            }
+
+        });
+
+    }
+
 //    public void selectOnKey(ViewHolder viewHolder, int position){
 //
 //        viewHolder.itemView.setOnKeyListener(new View.OnKeyListener() {

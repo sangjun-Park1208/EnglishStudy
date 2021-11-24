@@ -3,6 +3,7 @@ package com.example.englishstudy.global;
 public class WordItem {
     private int id;
     private int day;
+
     private int wordNum;
     private int isMark;
     private String word;

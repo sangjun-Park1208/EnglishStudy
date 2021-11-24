@@ -3,6 +3,7 @@ package com.example.englishstudy.Test;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,10 +33,6 @@ public class TestList extends AppCompatActivity {
     private ArrayList<Stage_Item> mDayList;
     private TestAdapter testAdapter;
 
-    private Button bt_SELECT;
-    private Button bt_UP;
-    private Button bt_DOWN;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +44,6 @@ public class TestList extends AppCompatActivity {
 
         //DB 내용 불러오기
         mWordItem = mDBHelper.getWordList();
-
 
         //Complete or Retry 여부 체크
         int index;
@@ -95,33 +92,6 @@ public class TestList extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int curPos, Context mContext) {
 
-//                        Stage_Item stage_item = mDayList.get(curPos);
-//                        bt_SELECT = findViewById(R.id.bt_SELECT);
-//                        bt_SELECT.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                simulateSelectPress(view);
-//
-//                            }
-//                        });
-//
-//
-//                        bt_UP = findViewById(R.id.bt_UP);
-//                        bt_UP.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                simulateUpPress(view);
-//                            }
-//                        });
-//
-//                        bt_DOWN = findViewById(R.id.bt_DOWN);
-//                        bt_DOWN.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                simulateDownPress(view);
-//                            }
-//                        });
-
                         //AlertDialog 를 이용한 팝업 창
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                         String[] strChoiceItems = {"O", "X"};
@@ -151,7 +121,29 @@ public class TestList extends AppCompatActivity {
                 }
         );
 
-
+//        bt_select.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Stage_Item stage_item = mDayList.get(clickPosition);
+//            }
+//        });
+//
+//        bt_down.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                clickPosition++;
+//            }
+//        });
+//
+//        bt_up.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Stage_Item stage_item = mDayList.get(clickPosition);
+//                stage_item.;
+//                clickPosition--;
+//            }
+//        });
 
 
     }
