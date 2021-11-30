@@ -11,6 +11,7 @@ import android.location.Location;
 import android.os.Bundle;
 
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -72,6 +73,9 @@ public class TestActivity extends AppCompatActivity {
     private ImageView imageView;
     int index = 0;
     int select_Stage;
+
+    private Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +128,7 @@ public class TestActivity extends AppCompatActivity {
         tv_timer = findViewById(R.id.tv_timer);
 
         testMeaning = new ArrayList<WordItem>();
-        //Collections.shuffle(testWordItems);
+        Collections.shuffle(testWordItems);
 
         startTest();
 
@@ -139,18 +143,18 @@ public class TestActivity extends AppCompatActivity {
                     //틀렸을 경우
                     if (!testMeaning.get(0).equals(testWordItems.get(index))) {
                         cv_select1.setBackgroundColor(Color.RED);
-                        SelectWrongAnswer();
+                        selectWrongAnswer();
                     } else {
                         cv_select1.setBackgroundColor(Color.BLUE);
-                        SelectCorrectAnswer();
+                        selectCorrectAnswer();
                     }
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    new Handler ().postDelayed (new Runnable() {
+                    new Handler().postDelayed(new Runnable() {
                         public void run() {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 3000);
+                    }, 0);
 
 
                 } else if (v == bt_select2 || v == cv_select2) {
@@ -158,53 +162,53 @@ public class TestActivity extends AppCompatActivity {
                     //틀렸을 경우
                     if (!testMeaning.get(1).equals(testWordItems.get(index))) {
                         cv_select2.setBackgroundColor(Color.RED);
-                        SelectWrongAnswer();
+                        selectWrongAnswer();
                     } else {
                         cv_select2.setBackgroundColor(Color.BLUE);
-                        SelectCorrectAnswer();
+                        selectCorrectAnswer();
                     }
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    new Handler ().postDelayed (new Runnable() {
+                    new Handler().postDelayed(new Runnable() {
                         public void run() {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 3000);
+                    }, 0);
 
                 } else if (v == bt_select3 || v == cv_select3) {
                     stopTimerTask();
                     //틀렸을 경우
                     if (!testMeaning.get(2).equals(testWordItems.get(index))) {
                         cv_select3.setBackgroundColor(Color.RED);
-                        SelectWrongAnswer();
+                        selectWrongAnswer();
                     } else {
                         cv_select3.setBackgroundColor(Color.BLUE);
-                        SelectCorrectAnswer();
+                        selectCorrectAnswer();
                     }
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    new Handler ().postDelayed (new Runnable() {
+                    new Handler().postDelayed(new Runnable() {
                         public void run() {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 3000);
+                    }, 0);
                 } else if (v == bt_select4 || v == cv_select4) {
                     stopTimerTask();
                     //틀렸을 경우
                     if (!testMeaning.get(3).equals(testWordItems.get(index))) {
                         cv_select4.setBackgroundColor(Color.RED);
-                        SelectWrongAnswer();
+                        selectWrongAnswer();
                     } else {
                         cv_select4.setBackgroundColor(Color.BLUE);
-                        SelectCorrectAnswer();
+                        selectCorrectAnswer();
                     }
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    new Handler ().postDelayed (new Runnable() {
+                    new Handler().postDelayed(new Runnable() {
                         public void run() {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 3000);
+                    }, 0);
                 }
             }
         };
@@ -234,7 +238,7 @@ public class TestActivity extends AppCompatActivity {
         stopTimerTask();
 
         timerTask = new TimerTask() {
-            int count = 10;
+            int count = 3;
 
             @Override
             public void run() {
@@ -245,8 +249,7 @@ public class TestActivity extends AppCompatActivity {
                         tv_timer.setText(count + " 초");
                         if (count == 0) {
                             stopTimerTask();
-                            SelectWrongAnswer();
-                            startTest();
+                            selectNothing_Timeout();
                         }
                     }
                 });
@@ -289,31 +292,22 @@ public class TestActivity extends AppCompatActivity {
         WordItem correctWordItem = testWordItems.get(index);
         testMeaning.add(correctWordItem);
         WordItem wrongWordItem;
-        int count = 1;
-        while (count<4) {
 
-            wrongWordItem = mWordItem.get(random.nextInt(mWordItem.size()));
+        int count;
+        for (count = 1; count < 4; count++) {
+            wrongWordItem = testWordItems.get(random.nextInt(testWordItems.size()));
 
-
-            for(int i=0; i<testMeaning.size(); i++){
-                Log.d("test",Integer.toString(testMeaning.size()));
-                    if(!wrongWordItem.getMeaning().equals(testMeaning.get(i).getMeaning())){
-                        testMeaning.add(wrongWordItem);
-                        Log.d("wrong",wrongWordItem.getMeaning());
-                        count++;
-                        break;
-                    }
+            for (int i = 0; i < testMeaning.size(); i++) {
+                if (testMeaning.get(i).getWordNum() == wrongWordItem.getWordNum()) {
+                    count--;
+                } else {
+                    testMeaning.add(wrongWordItem);
                 }
-
+                break;
+            }
         }
-        Log.d("wrong"," ");
-        Collections.shuffle(testMeaning);
-        Log.d("wrong",testMeaning.get(0).getMeaning());
-        Log.d("wrong",testMeaning.get(1).getMeaning());
-        Log.d("wrong",testMeaning.get(2).getMeaning());
-        Log.d("wrong",testMeaning.get(3).getMeaning());
-        Log.d("wrong"," ");
 
+        Collections.shuffle(testMeaning);
         tv_mean1.setText(testMeaning.get(0).getMeaning());
         tv_mean2.setText(testMeaning.get(1).getMeaning());
         tv_mean3.setText(testMeaning.get(2).getMeaning());
@@ -323,8 +317,8 @@ public class TestActivity extends AppCompatActivity {
     }
 
 
-    //정답 Toast 이미지로 사용해서 추가하기
-    public void SelectCorrectAnswer() {
+    //정답을 골랐을 때
+    public void selectCorrectAnswer() {
         Toast toast = Toast.makeText(getApplicationContext(), "정답입니다", Toast.LENGTH_SHORT);
         //toast.setView(imageView);
         toast.setGravity(Gravity.CENTER, 50, 50);
@@ -335,28 +329,33 @@ public class TestActivity extends AppCompatActivity {
         index++;
     }
 
-    public void SelectWrongAnswer() {
+    //오답을 골랐을 때
+    public void selectWrongAnswer() {
         Toast toast = Toast.makeText(getApplicationContext(), "틀렸습니다", Toast.LENGTH_SHORT);
         //toast.setView(imageView);
         toast.setGravity(Gravity.CENTER, 50, 50);
         toast.show();
 
-        for(int i=0; i< 4;i++){
-            if(testMeaning.get(i).getId()==testWordItems.get(index).getId()){
-                switch (i){
-                    case 1: cv_select1.setBackgroundColor(Color.BLUE);
+        for (int i = 0; i < 4; i++) {
+            if (testMeaning.get(i).getWordNum() == testWordItems.get(index).getWordNum()) {
+                switch (i) {
+                    case 0:
+                        cv_select1.setBackgroundColor(Color.BLUE);
                         break;
-                    case 2: cv_select2.setBackgroundColor(Color.BLUE);
+                    case 1:
+                        cv_select2.setBackgroundColor(Color.BLUE);
                         break;
-                    case 3: cv_select3.setBackgroundColor(Color.BLUE);
+                    case 2:
+                        cv_select3.setBackgroundColor(Color.BLUE);
                         break;
-                    case 4: cv_select4.setBackgroundColor(Color.BLUE);
+                    case 3:
+                        cv_select4.setBackgroundColor(Color.BLUE);
                         break;
                 }
                 break;
             }
         }
-        Log.d("size",Integer.toString(testMeaning.size()));
+
         testWordItems.get(index).setIsMark(1);
         testMeaning.clear();
 
@@ -364,43 +363,155 @@ public class TestActivity extends AppCompatActivity {
 
     }
 
-    public void Delay() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+    //시간초과 되었을 때
+    public void selectNothing_Timeout() {
+        Toast toast = Toast.makeText(getApplicationContext(), "시간이 초과되었습니다.", Toast.LENGTH_SHORT);
+        //toast.setView(imageView);
+        toast.setGravity(Gravity.CENTER, 50, 50);
+        toast.show();
+
+
+        for (int i = 0; i < 4; i++) {
+            if (testMeaning.get(i).getWordNum() == testWordItems.get(index).getWordNum()) {
+                switch (i) {
+                    case 0:
+                        cv_select1.setBackgroundColor(Color.BLUE);
+                        break;
+                    case 1:
+                        cv_select2.setBackgroundColor(Color.BLUE);
+                        break;
+                    case 2:
+                        cv_select3.setBackgroundColor(Color.BLUE);
+                        break;
+                    case 3:
+                        cv_select4.setBackgroundColor(Color.BLUE);
+                        break;
+                }
+                break;
+            }
         }
+
+        testWordItems.get(index).setIsMark(1);
+        testMeaning.clear();
+
+        index++;
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                startTest();
+            }
+        }, 3000);
+
     }
 
+//    public class Delay {
+//        private final int MESSAGE_WHAT = 1;
+//
+//        Handler handler = new Handler(new Handler.Callback() {
+//
+//            @Override
+//            public boolean handleMessage(Message msg) {
+//                // TODO Auto-generated method stub
+//                if (msg.what == MESSAGE_WHAT) {
+//                    new Runnable() {
+//
+//                        @Override
+//                        public void run() {
+//                            // TODO Auto-generated method stub
+//
+//                        }
+//                    };
+//                }
+//                return false;
+//            }
+//        });
+//
+//        private void sendDelayMessage() {
+//            Message msg = handler.obtainMessage(MESSAGE_WHAT);
+//            handler.sendMessageDelayed(msg, 3000);
+//        }
+//
+//        private void removeMessage() {
+//            handler.removeMessages(MESSAGE_WHAT);
+//        }
+//
+//    }
 
     public void endTest(ArrayList<WordItem> testMeaning, ArrayList<WordItem> testWordItems, int index) {
+        int id;
+        int day;
+        int wordNum;
+        int isMark;
+        String word;
+        String meaning;
+
+        int correct = 0;
+        int wrong = 0;
+        //////////////////////////////////////////////////
+        //도중에 나갈경우 DataUpdate 를 할것인가 말것인가?
+
+        Collections.sort(testWordItems, new WordItemIdComparator());
         for (int i = 0; i < testWordItems.size(); i++) {
-            Collections.sort(testWordItems, new WordItemIdComparator());
+            Log.d("test", testWordItems.get(i).getMeaning());
         }
+
+        for (int i = 0; i < testWordItems.size(); i++) {
+
+            id = (i + 1) + select_Stage * 30;
+            day = testWordItems.get(i).getDay();
+            wordNum = testWordItems.get(i).getWordNum();
+            isMark = testWordItems.get(i).getIsMark();
+            word = testWordItems.get(i).getWord();
+            meaning = testWordItems.get(i).getMeaning();
+
+            mDBHelper.UpdateWord(day, wordNum, isMark, word, meaning, id);
+
+            if (testWordItems.get(i).getIsMark() == 1) {
+                wrong++;
+            } else if (testWordItems.get(i).getIsMark() == 0) {
+                correct++;
+            }
+        }
+
+
+        Intent intent = new Intent(this, TestList.class);
+        startActivity(intent);
+        finish();
+
 
     }
 
 
-    public class WordItemIdComparator implements Comparator<WordItem> {
-
-
-        @Override
-        public int compare(WordItem o1, WordItem o2) {
-            if(o1.getId() > o2.getId()){
-                return 1;
-            }
-            else if(o1.getId() < o2.getId()){
-                return -1;
-            }
-            else{
-                return 0;
-            }
-
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return false;
-        }
-    }
+//
+//    // 마지막으로 뒤로 가기 버튼을 눌렀던 시간 저장
+//    private long backKeyPressedTime = 0;
+//    // 첫 번째 뒤로 가기 버튼을 누를 때 표시
+//    private Toast toast;
+//
+//    @Override
+//    public void onBackPressed() {
+//        //super.onBackPressed();
+//        // 기존 뒤로 가기 버튼의 기능을 막기 위해 주석 처리 또는 삭제
+//
+//        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
+//        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지났으면 Toast 출력
+//        // 2500 milliseconds = 2.5 seconds
+//        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+//            backKeyPressedTime = System.currentTimeMillis();
+//            toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
+//            toast.show();
+//            return;
+//        }
+//        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
+//        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지나지 않았으면 종료
+//        if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+//            finish();
+//            toast.cancel();
+//            toast = Toast.makeText(this, "이용해 주셔서 감사합니다.", Toast.LENGTH_LONG);
+//            toast.show();
+//        }
+//    }
 }

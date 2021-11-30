@@ -81,7 +81,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //UPDATE 문 (단어를 수정한다.)
     public void  UpdateWord(int _day, int _wordNum, int _isMark, String _word, String _meaning, int _id){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO WordList SET day= '"+_day+"',wordNum= '"+_wordNum+"',isMark= '"+_isMark+"',word= '"+_word+"',meaning= '"+_meaning+"' WHERE id = '"+_id+"'");
+        db.execSQL("UPDATE WordList SET day= '"+_day+"',wordNum= '"+_wordNum+"',isMark= '"+_isMark+"',word= '"+_word+"',meaning= '"+_meaning+"' WHERE id = '"+_id+"'");
     }
 
 
