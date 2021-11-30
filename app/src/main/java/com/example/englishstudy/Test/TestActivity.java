@@ -7,6 +7,7 @@ import android.content.Context;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 
 import android.os.Handler;
@@ -71,7 +72,6 @@ public class TestActivity extends AppCompatActivity {
     private ImageView imageView;
     int index = 0;
     int select_Stage;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -265,12 +265,12 @@ public class TestActivity extends AppCompatActivity {
     }
 
     public void startTest() {
-        Random random = new Random();
+        Random random = new Random(System.currentTimeMillis());
 
         cv_select1.setBackgroundColor(Color.TRANSPARENT);
         cv_select2.setBackgroundColor(Color.TRANSPARENT);
         cv_select3.setBackgroundColor(Color.TRANSPARENT);
-        cv_select1.setBackgroundColor(Color.TRANSPARENT);
+        cv_select4.setBackgroundColor(Color.TRANSPARENT);
 
         if (index == 29) {
             endTest(testMeaning, testWordItems, index);
@@ -290,28 +290,30 @@ public class TestActivity extends AppCompatActivity {
         testMeaning.add(correctWordItem);
         WordItem wrongWordItem;
         int count = 1;
-        while (true) {
+        while (count<4) {
 
             wrongWordItem = mWordItem.get(random.nextInt(mWordItem.size()));
-            //Log.d("wrong",wrongWordItem.getMeaning());
-            if (!(wrongWordItem.getMeaning().equals(correctWordItem.getMeaning()))) {
+
+
             for(int i=0; i<testMeaning.size(); i++){
-                    Log.d("wrong",Integer.toString(i)); //010123
-                    //Log.d("wrong",wrongWordItem.getMeaning());
+                Log.d("test",Integer.toString(testMeaning.size()));
                     if(!wrongWordItem.getMeaning().equals(testMeaning.get(i).getMeaning())){
                         testMeaning.add(wrongWordItem);
-                        //Log.d("wrong",testMeaning.get(i).getMeaning());
+                        Log.d("wrong",wrongWordItem.getMeaning());
                         count++;
+                        break;
                     }
                 }
-            }
-
-            if (count == 4) {
-                break;
-            }
 
         }
-        //Collections.shuffle(testMeaning);
+        Log.d("wrong"," ");
+        Collections.shuffle(testMeaning);
+        Log.d("wrong",testMeaning.get(0).getMeaning());
+        Log.d("wrong",testMeaning.get(1).getMeaning());
+        Log.d("wrong",testMeaning.get(2).getMeaning());
+        Log.d("wrong",testMeaning.get(3).getMeaning());
+        Log.d("wrong"," ");
+
         tv_mean1.setText(testMeaning.get(0).getMeaning());
         tv_mean2.setText(testMeaning.get(1).getMeaning());
         tv_mean3.setText(testMeaning.get(2).getMeaning());
@@ -324,7 +326,7 @@ public class TestActivity extends AppCompatActivity {
     //정답 Toast 이미지로 사용해서 추가하기
     public void SelectCorrectAnswer() {
         Toast toast = Toast.makeText(getApplicationContext(), "정답입니다", Toast.LENGTH_SHORT);
-        toast.setView(imageView);
+        //toast.setView(imageView);
         toast.setGravity(Gravity.CENTER, 50, 50);
         toast.show();
 
@@ -335,7 +337,7 @@ public class TestActivity extends AppCompatActivity {
 
     public void SelectWrongAnswer() {
         Toast toast = Toast.makeText(getApplicationContext(), "틀렸습니다", Toast.LENGTH_SHORT);
-        toast.setView(imageView);
+        //toast.setView(imageView);
         toast.setGravity(Gravity.CENTER, 50, 50);
         toast.show();
 
@@ -354,9 +356,10 @@ public class TestActivity extends AppCompatActivity {
                 break;
             }
         }
-
+        Log.d("size",Integer.toString(testMeaning.size()));
         testWordItems.get(index).setIsMark(1);
         testMeaning.clear();
+
         index++;
 
     }
@@ -383,7 +386,16 @@ public class TestActivity extends AppCompatActivity {
 
         @Override
         public int compare(WordItem o1, WordItem o2) {
-            return 0;
+            if(o1.getId() > o2.getId()){
+                return 1;
+            }
+            else if(o1.getId() < o2.getId()){
+                return -1;
+            }
+            else{
+                return 0;
+            }
+
         }
 
         @Override

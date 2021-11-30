@@ -77,12 +77,15 @@ public class MainActivity extends AppCompatActivity {
         mDBHelper = new DBHelper(this);
         mWorditem = new ArrayList<>();
         if (mWorditem.size() != 0) return;//단어가 db에 이미 있으면 setInit 종료
-
         //단어 끌고 오기
+        int k=1;
         VocaList vocaList = new VocaList();
-            for (int i = 0; i < 29; i++) {
-                mDBHelper.InsertWord(1, 1, 1, vocaList.getWord(i), vocaList.getMeaning(i));//isMark,word,meaning 순으로
+        for(int j =0 ; j<10; j++) {
+            for (int i = 0; i < 90; i++) {
+                mDBHelper.InsertWord(1, k, 1, vocaList.getWord(i), vocaList.getMeaning(i));//isMark,word,meaning 순으로
+                k++;
             }
+        }
 
     }
 
