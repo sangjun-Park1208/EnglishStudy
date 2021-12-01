@@ -1,51 +1,149 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F1EDF6"
-    tools:context=".Memorization.Memorization">
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".Memorization.MemorizationActivity">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#8096ef"
-                android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:layout_marginBottom="16sp"
+            android:layout_weight="10"
+            android:fontFamily="@font/neodgm"
+            android:text="암기 - "
+            android:textColor="@color/black"
+            android:textSize="45sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stage "
+            android:fontFamily="@font/neodgm"
+            android:textColor="@color/black"
+            android:textSize="45sp"
+            android:layout_marginTop="16sp"
+            android:layout_marginBottom="16sp"/>
+        <TextView
+            android:id="@+id/mem_stageNum2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:fontFamily="@font/neodgm"
+            android:textColor="@color/black"
+            android:textSize="45sp"
+            android:layout_marginTop="16sp"
+            android:layout_marginBottom="16sp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:text="단어 암기"
-
-
-                android:textColor="#EFD686"
-
-                android:textStyle="bold" />
-        </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/day_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:scrollbarFadeDuration="0"
-                android:scrollbarSize="5dp"
-                android:scrollbarThumbVertical="@android:color/darker_gray"
-                android:scrollbars="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/word_list" />
-
-        </LinearLayout>
+    </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/mem_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:layout_gravity="left"
+            android:fontFamily="@font/neodgm"
+            android:textColor="@color/black"
+            android:layout_marginLeft="16sp"
+            android:text="목록"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/mem_progressText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="X"
+            android:fontFamily="@font/neodgm"
+            android:textSize="30sp"
+            android:textColor="@color/teal_200"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily="@font/neodgm"
+            android:textColor="@color/teal_200"
+            android:layout_marginRight="16sp"
+            android:text="/30"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/mem_progressBar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"
+        android:layout_margin="20dp"/>
+
+
+    <TextView
+        android:id="@+id/mem_word"
+        android:layout_width="200sp"
+        android:layout_height="100sp"
+        android:layout_weight="10"
+        android:paddingTop="30sp"
+        android:text="banana"
+        android:maxLines="1"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/neodgm"
+        android:textSize="50sp" />
+
+    <TextView
+        android:id="@+id/mem_meaning"
+        android:layout_width="200sp"
+        android:layout_height="100sp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="10"
+        android:paddingTop="30sp"
+        android:text="바나나"
+        android:maxLines="1"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/neodgm"
+        android:textSize="50sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/mem_known"
+            android:layout_width="150sp"
+            android:layout_height="150sp"
+            android:layout_marginRight="16sp"
+            android:text="O"
+            android:fontFamily="@font/neodgm"
+            android:textSize="48sp" />
+
+        <Button
+            android:id="@+id/mem_unknown"
+            android:layout_width="150sp"
+            android:layout_height="150sp"
+            android:layout_marginLeft="16sp"
+            android:text="X"
+            android:fontFamily="@font/neodgm"
+            android:textSize="48sp" />
+    </LinearLayout>
+
+</LinearLayout>
 

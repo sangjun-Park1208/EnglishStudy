@@ -21,7 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishstudy.R;
 import com.example.englishstudy.global.DBHelper;
-import com.example.englishstudy.global.Stage_Item;
+import com.example.englishstudy.global.StageItem;
+import com.example.englishstudy.global.StageItem;
 import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
@@ -30,9 +31,8 @@ public class TestList extends AppCompatActivity {
     private DBHelper mDBHelper;
     private Context mContext;
     private ArrayList<WordItem> mWordItem;
-    private ArrayList<Stage_Item> mDayList;
+    private ArrayList<StageItem> mDayList;
     private TestAdapter testAdapter;
-    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,33 +51,26 @@ public class TestList extends AppCompatActivity {
         int repeat;
         boolean isMark;
 
-
         //총 단어 : 900개, Day 개수 : 30개
         for (int day = 0; day < 30; day++) {
             isMark = false;
             index = day * 30;
             repeat = day * 30 + 30;
-            int correct=0;
-            int wrong=0;
 
             //index~repeat 범위에 Mark(틀렸거나, 사용자가 북마크한 것)가 있는지 탐색
             for (; index < repeat; index++) {
                 if (1 == mWordItem.get(index).getIsMark()) {
-                    wrong++;
                     isMark = true;
-                }
-                else if(0==mWordItem.get(index).getIsMark()){
-                    correct++;
                 }
             }
             //Mark 가 적어도 하나 있을 경우 Complete X : Challenge 표시
             if (isMark == true) {
-                mDayList.add(new Stage_Item("Stage" + Integer.toString(day + 1), "Challenge",correct,wrong));
+                mDayList.add(new StageItem("Stage" + Integer.toString(day + 1), "Challenge"));
 
             }
             //Mark 가 없을 경우 모두 정답 : Complete 표시
             else {
-                mDayList.add(new Stage_Item("Stage" + Integer.toString(day + 1), "Complete",correct,wrong));
+                mDayList.add(new StageItem("Stage" + Integer.toString(day + 1), "Complete"));
             }
         }
 
@@ -88,7 +81,7 @@ public class TestList extends AppCompatActivity {
 
 
         //RecyclerView 연결
-        recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(testAdapter);
@@ -160,32 +153,6 @@ public class TestList extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-
-        //Intent 로 stage, 정답 개수, 오답 개수 전달받음
-        String stage = "Stage"+intent.getIntExtra("stage",0)+1;
-        String running;
-        int correct =  intent.getIntExtra("correct",0);
-        int wrong =  intent.getIntExtra("wrong",0);
-
-        //모두 정답일 경우 Complete / 아닐 경우 : Challenge
-        if(correct==30){
-            running = "Complete";
-        }
-        else{
-            running = "Challenge";
-        }
-
-        //stage, running, 정답 개수, 오답 개수
-        //해당 Stage Update
-        Stage_Item stageItem = new Stage_Item(stage,running,correct,wrong);
-        mDayList.set(intent.getIntExtra("stage",0),stageItem);
-
-        //수정한 결과 RecyclerView 에 반영
-        if (testAdapter == null) {
-            testAdapter = new TestAdapter(mDayList, this);
-        }
-        recyclerView.setAdapter(testAdapter);
-
     }
 //    public void simulateSelectPress(View v){
 //

@@ -9,13 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishStudy">
-        <activity android:name=".Test.TestResult"/>
-        <activity android:name=".Test.TestActivity" />
+        <activity android:name=".Test.TestActivity"></activity>
         <activity
             android:name=".Test.TestList"
             android:exported="false"
-            android:label="TestListActivity"
-            android:launchMode="singleTask"/>
+            android:label="TestListActivity" />
         <activity
             android:name=".Review.ReviewActivity"
             android:exported="false"
@@ -25,9 +23,12 @@
             android:exported="false"
             android:label="ReviewList" />
         <activity
-            android:name=".Memorization.Memorization"
+            android:name=".Memorization.MemorizationActivity"
             android:exported="false"
             android:label="Memorization" />
+        <activity android:name=".Memorization.MemorizationList"
+            android:exported="false"
+            android:label="MemorizationActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,8 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
+import com.example.englishstudy.Memorization.MemorizationList;
 import com.example.englishstudy.Review.ReviewActivity;
 import com.example.englishstudy.Review.ReviewList;
 import com.example.englishstudy.Test.TestList;
@@ -24,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     private DBHelper mDBHelper;
     private ArrayList<WordItem> mWorditem;
-    private TextView main_tv_Progress;
     private ProgressBar progressBar;
-    private Button mbutton;
+    private Button memorization1;
+    private Button memorization2;
     private Button test1;
     private Button test2;
     private Button review1;
@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         setInit();//DB 세팅
 
         //오늘의 달성률
-        setProgressBar();
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setProgress(50);
 
         //test 화면 넘어가기
         test1 = findViewById(R.id.test1);
@@ -77,11 +78,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //버튼 누르면 다른 화면으로
-        mbutton=(Button)findViewById(R.id.memorization1);
-        mbutton.setOnClickListener(new View.OnClickListener() {
+        memorization1=findViewById(R.id.memorization1);
+        memorization1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {//암기하기 눌렀을때
-                startActivity(new Intent(view.getContext(), ReviewList.class));
+                startActivity(new Intent(view.getContext(), MemorizationList.class));
+            }
+        });
+        memorization2=findViewById(R.id.memorization2);
+        memorization2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {//암기하기 눌렀을때
+                startActivity(new Intent(view.getContext(), MemorizationList.class));
             }
         });
     }
@@ -102,32 +110,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setProgressBar(){
-        int correct=0;
-        int wrong=0;
-
-        mDBHelper = new DBHelper(this);
-        mWorditem = new ArrayList<>();
-        mWorditem=mDBHelper.getWordList();//DB 아이템들 끌고오기
-
-        for(int i=0; i< 900;i++){
-            if(mWorditem.get(i).getIsMark()==0){
-                correct++;
-            }
-            else if(mWorditem.get(i).getIsMark()==1){
-                wrong++;
-            }
-        }
-
-        main_tv_Progress = findViewById(R.id.main_tv_Progress);
-        main_tv_Progress.setText("오늘의 달성률: "+correct+"/900");
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setProgress(correct);
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        setProgressBar();
-    }
 }
