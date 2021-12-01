@@ -130,26 +130,31 @@ public class TestActivity extends AppCompatActivity {
         tv_timer = findViewById(R.id.tv_timer);
 
         testMeaning = new ArrayList<WordItem>();
+
+        //Test 볼 30단어 무작위로 섞음
         Collections.shuffle(testWordItems);
 
+        //Test 시작
         startTest();
 
-        ////////////////////////////////////////////////////////////
 
+        //버튼 or CardView 클릭리스너 (1,2,3,4)
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //1번 클릭
                 if (v == bt_select1 || v == cv_select1) {
                     stopTimerTask();
-                    //틀렸을 경우
+                    //정답일 경우 해당 카드뷰 빨간색 표시, selectWrongAnswer();
                     if (!testMeaning.get(0).equals(testWordItems.get(index))) {
                         cv_select1.setBackgroundColor(Color.RED);
                         selectWrongAnswer();
                     } else {
+                    //오답일 경우 해당 카드뷰 파란색 표시, selectCorrectAnswer();
                         cv_select1.setBackgroundColor(Color.BLUE);
                         selectCorrectAnswer();
                     }
+                    //사용자가 정답을 확인하기 위한 위한 지연 1초
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
@@ -159,7 +164,9 @@ public class TestActivity extends AppCompatActivity {
                     }, 1000);
 
 
-                } else if (v == bt_select2 || v == cv_select2) {
+                }
+                //2번 클릭
+                else if (v == bt_select2 || v == cv_select2) {
                     stopTimerTask();
                     //틀렸을 경우
                     if (!testMeaning.get(1).equals(testWordItems.get(index))) {
@@ -177,7 +184,9 @@ public class TestActivity extends AppCompatActivity {
                         }
                     }, 1000);
 
-                } else if (v == bt_select3 || v == cv_select3) {
+                }
+                //3번 클릭
+                else if (v == bt_select3 || v == cv_select3) {
                     stopTimerTask();
                     //틀렸을 경우
                     if (!testMeaning.get(2).equals(testWordItems.get(index))) {
@@ -194,7 +203,9 @@ public class TestActivity extends AppCompatActivity {
                             startTest();
                         }
                     }, 1000);
-                } else if (v == bt_select4 || v == cv_select4) {
+                }
+                //4번 클릭
+                else if (v == bt_select4 || v == cv_select4) {
                     stopTimerTask();
                     //틀렸을 경우
                     if (!testMeaning.get(3).equals(testWordItems.get(index))) {
@@ -214,11 +225,12 @@ public class TestActivity extends AppCompatActivity {
                 }
             }
         };
+
+        //버튼, 카드뷰 클릭리스너 참조
         bt_select1.setOnClickListener(onClickListener);
         bt_select2.setOnClickListener(onClickListener);
         bt_select3.setOnClickListener(onClickListener);
         bt_select4.setOnClickListener(onClickListener);
-
         cv_select1.setOnClickListener(onClickListener);
         cv_select2.setOnClickListener(onClickListener);
         cv_select3.setOnClickListener(onClickListener);
@@ -240,6 +252,7 @@ public class TestActivity extends AppCompatActivity {
         stopTimerTask();
 
         timerTask = new TimerTask() {
+            //카운트 시작 시간 10초
             int count = 10;
 
             @Override
@@ -249,6 +262,7 @@ public class TestActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         tv_timer.setText(count + " 초");
+                        //0초일 때 Timeout(시간초과) 처리
                         if (count == 0) {
                             stopTimerTask();
                             selectNothing_Timeout();
@@ -257,6 +271,7 @@ public class TestActivity extends AppCompatActivity {
                 });
             }
         };
+        //시작 초 10, 1초씩 감소
         timer.schedule(timerTask, 0, 1000);
     }
 
@@ -269,14 +284,17 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
+    //Test 초기 화면 설정 및 시작
     public void startTest() {
         Random random = new Random(System.currentTimeMillis());
 
+        //정답,오답 표시 초기화
         cv_select1.setBackgroundColor(Color.TRANSPARENT);
         cv_select2.setBackgroundColor(Color.TRANSPARENT);
         cv_select3.setBackgroundColor(Color.TRANSPARENT);
         cv_select4.setBackgroundColor(Color.TRANSPARENT);
 
+        //30단어를 다 Test 했을 경우 Test 종료
         if (index == 30) {
             endTest(index);
         }
@@ -285,18 +303,19 @@ public class TestActivity extends AppCompatActivity {
             //타이머 시작
             startTimerTask();
 
-            //TextView
+            //진행률 표시
             tv_progress = findViewById(R.id.tv_progress);
             tv_progress.setText(Integer.toString(index + 1) + "/30");
 
-            //단어
+            //단어 표시
             tv_word.setText(testWordItems.get(index).getWord());
 
-            //뜻
+            //정답 설정
             WordItem correctWordItem = testWordItems.get(index);
             testMeaning.add(correctWordItem);
             WordItem wrongWordItem;
 
+            //해당 Stage 에서 중복되지 않는 오답 3개 설정
             int count;
             for (count = 1; count < 4; count++) {
                 wrongWordItem = testWordItems.get(random.nextInt(testWordItems.size()));
@@ -311,7 +330,10 @@ public class TestActivity extends AppCompatActivity {
                 }
             }
 
+            //0:정답, 1,2,3: 오답 섞기
             Collections.shuffle(testMeaning);
+
+            //뜻 표시
             tv_mean1.setText(testMeaning.get(0).getMeaning());
             tv_mean2.setText(testMeaning.get(1).getMeaning());
             tv_mean3.setText(testMeaning.get(2).getMeaning());
@@ -329,6 +351,7 @@ public class TestActivity extends AppCompatActivity {
         //toast.setGravity(Gravity.CENTER, 50, 50);
         toast.show();
 
+        //정답: Mark  0으로/ testMeaning 초기화 / 다음 단어로
         testWordItems.get(index).setIsMark(0);
         testMeaning.clear();
         index++;
@@ -341,6 +364,7 @@ public class TestActivity extends AppCompatActivity {
         //toast.setGravity(Gravity.CENTER, 50, 50);
         toast.show();
 
+        //1,2,3,4번 중 정답을 찾아 파란색으로 표시
         for (int i = 0; i < 4; i++) {
             if (testMeaning.get(i).getWordNum() == testWordItems.get(index).getWordNum()) {
                 switch (i) {
@@ -361,9 +385,9 @@ public class TestActivity extends AppCompatActivity {
             }
         }
 
+        //오답: Mark  1로/ testMeaning 초기화 / 다음 단어로
         testWordItems.get(index).setIsMark(1);
         testMeaning.clear();
-
         index++;
 
     }
@@ -376,7 +400,7 @@ public class TestActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER, 50, 50);
         toast.show();
 
-
+        //1,2,3,4번 중 정답을 찾아 파란색으로 표시
         for (int i = 0; i < 4; i++) {
             if (testMeaning.get(i).getWordNum() == testWordItems.get(index).getWordNum()) {
                 switch (i) {
@@ -397,9 +421,9 @@ public class TestActivity extends AppCompatActivity {
             }
         }
 
+        //오답(=시간초과): Mark  1로/ testMeaning 초기화 / 다음 단어로
         testWordItems.get(index).setIsMark(1);
         testMeaning.clear();
-
         index++;
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -444,6 +468,7 @@ public class TestActivity extends AppCompatActivity {
 
     }
 
+    //Test 종료
     public void endTest(int index) {
         int id;
         int day;
@@ -454,20 +479,21 @@ public class TestActivity extends AppCompatActivity {
 
         int correct = 0;
         int wrong = 0;
-        //////////////////////////////////////////////////
-        //도중에 나갈경우 DataUpdate 를 할것인가 말것인가?
-        //반영안되게
+
+        //30단어를 다 Test 하지 않고 도중에 나갔을 경우
+        //DB에 반영하지 않고 종료
         if (index != 30) {
             Intent intent = new Intent(this, TestList.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-        } else {
+        }
+        //30단어를 다 Test 했을 경우
+        else {
+            //무작위로 섞었던 30단어 정렬
             Collections.sort(testWordItems, new WordItemIdComparator());
-            for (int i = 0; i < testWordItems.size(); i++) {
-                Log.d("test", testWordItems.get(i).getMeaning());
-            }
 
+            //DB에 결과 Update
             for (int i = 0; i < testWordItems.size(); i++) {
 
                 id = (i + 1) + select_Stage * 30;
@@ -486,7 +512,7 @@ public class TestActivity extends AppCompatActivity {
                 }
             }
 
-
+            //정답개수, 오답개수를 결과창인 TestResult 로 보내고 종료
             Intent intent = new Intent(this, TestResult.class);
             intent.putExtra("stage",select_Stage);
             intent.putExtra("correct", correct);
@@ -506,7 +532,6 @@ public class TestActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
         // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지났으면 Toast 출력
         // 2500 milliseconds = 2.5 seconds
