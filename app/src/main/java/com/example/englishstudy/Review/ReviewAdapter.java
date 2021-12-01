@@ -1,6 +1,9 @@
 package com.example.englishstudy.Review;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -9,11 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishstudy.R;
+import com.example.englishstudy.Test.TestAdapter;
 import com.example.englishstudy.global.Stage_Item;
 
 import java.util.ArrayList;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> implements ReviewOnStageItemClickListener {
+
+    private int oldPosition=-1;
+    private int selectedPosition=-1;
 
     private ArrayList<Stage_Item> mDayList;
     ReviewOnStageItemClickListener listener;
@@ -70,6 +77,29 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                     }
                 }
             });
+        }
+
+        public void isSelected(TestAdapter.ViewHolder viewHolder, int position){//이부분 질문
+            if(selectedPosition == position){
+                viewHolder.itemView.setBackgroundColor(Color.GRAY);
+            }
+            else{
+                viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
+            }
+
+            viewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    oldPosition = selectedPosition;
+                    selectedPosition = position;
+
+                    notifyItemChanged(oldPosition);
+                    notifyItemChanged(selectedPosition);
+                    return false;
+                }
+
+            });
+
         }
 
         public void onBind(Stage_Item stageItem) {

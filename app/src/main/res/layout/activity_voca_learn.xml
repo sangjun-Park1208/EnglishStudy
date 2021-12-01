@@ -27,7 +27,7 @@
         android:layout_gravity="right"
         android:fontFamily="@font/neodgm"
         android:layout_marginRight="16sp"
-        android:text="1/50"
+        android:text="1/30"
         android:textSize="34sp" />
 
     <TextView
