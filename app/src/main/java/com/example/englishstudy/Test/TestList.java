@@ -148,6 +148,11 @@ public class TestList extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
 //    public void simulateSelectPress(View v){
 //
 //        InputConnection inputConnection = new BaseInputConnection(v, true);

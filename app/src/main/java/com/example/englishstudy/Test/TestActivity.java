@@ -154,7 +154,7 @@ public class TestActivity extends AppCompatActivity {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 0);
+                    }, 1000);
 
 
                 } else if (v == bt_select2 || v == cv_select2) {
@@ -173,7 +173,7 @@ public class TestActivity extends AppCompatActivity {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 0);
+                    }, 1000);
 
                 } else if (v == bt_select3 || v == cv_select3) {
                     stopTimerTask();
@@ -191,7 +191,7 @@ public class TestActivity extends AppCompatActivity {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 0);
+                    }, 1000);
                 } else if (v == bt_select4 || v == cv_select4) {
                     stopTimerTask();
                     //틀렸을 경우
@@ -208,7 +208,7 @@ public class TestActivity extends AppCompatActivity {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 0);
+                    }, 1000);
                 }
             }
         };
@@ -229,7 +229,7 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         //Activity onDestroy() 시 Timer 종료
-        timer.cancel();
+        //timer.cancel();
         super.onDestroy();
     }
 
@@ -238,7 +238,7 @@ public class TestActivity extends AppCompatActivity {
         stopTimerTask();
 
         timerTask = new TimerTask() {
-            int count = 3;
+            int count = 10;
 
             @Override
             public void run() {
@@ -275,43 +275,46 @@ public class TestActivity extends AppCompatActivity {
         cv_select3.setBackgroundColor(Color.TRANSPARENT);
         cv_select4.setBackgroundColor(Color.TRANSPARENT);
 
-        if (index == 29) {
-            endTest(testMeaning, testWordItems, index);
+        if (index == 30) {
+            endTest(index);
         }
-        //타이머 시작
-        startTimerTask();
+        else{
 
-        //TextView
-        tv_progress = findViewById(R.id.tv_progress);
-        tv_progress.setText(Integer.toString(index + 1) + "/30");
+            //타이머 시작
+            startTimerTask();
 
-        //단어
-        tv_word.setText(testWordItems.get(index).getWord());
+            //TextView
+            tv_progress = findViewById(R.id.tv_progress);
+            tv_progress.setText(Integer.toString(index + 1) + "/30");
 
-        //뜻
-        WordItem correctWordItem = testWordItems.get(index);
-        testMeaning.add(correctWordItem);
-        WordItem wrongWordItem;
+            //단어
+            tv_word.setText(testWordItems.get(index).getWord());
 
-        int count;
-        for (count = 1; count < 4; count++) {
-            wrongWordItem = testWordItems.get(random.nextInt(testWordItems.size()));
+            //뜻
+            WordItem correctWordItem = testWordItems.get(index);
+            testMeaning.add(correctWordItem);
+            WordItem wrongWordItem;
 
-            for (int i = 0; i < testMeaning.size(); i++) {
-                if (testMeaning.get(i).getWordNum() == wrongWordItem.getWordNum()) {
-                    count--;
-                } else {
-                    testMeaning.add(wrongWordItem);
+            int count;
+            for (count = 1; count < 4; count++) {
+                wrongWordItem = testWordItems.get(random.nextInt(testWordItems.size()));
+
+                for (int i = 0; i < testMeaning.size(); i++) {
+                    if (testMeaning.get(i).getWordNum() == wrongWordItem.getWordNum()) {
+                        count--;
+                    } else {
+                        testMeaning.add(wrongWordItem);
+                    }
+                    break;
                 }
-                break;
             }
-        }
 
-        Collections.shuffle(testMeaning);
-        tv_mean1.setText(testMeaning.get(0).getMeaning());
-        tv_mean2.setText(testMeaning.get(1).getMeaning());
-        tv_mean3.setText(testMeaning.get(2).getMeaning());
-        tv_mean4.setText(testMeaning.get(3).getMeaning());
+            Collections.shuffle(testMeaning);
+            tv_mean1.setText(testMeaning.get(0).getMeaning());
+            tv_mean2.setText(testMeaning.get(1).getMeaning());
+            tv_mean3.setText(testMeaning.get(2).getMeaning());
+            tv_mean4.setText(testMeaning.get(3).getMeaning());
+        }
 
 
     }
@@ -321,7 +324,7 @@ public class TestActivity extends AppCompatActivity {
     public void selectCorrectAnswer() {
         Toast toast = Toast.makeText(getApplicationContext(), "정답입니다", Toast.LENGTH_SHORT);
         //toast.setView(imageView);
-        toast.setGravity(Gravity.CENTER, 50, 50);
+        //toast.setGravity(Gravity.CENTER, 50, 50);
         toast.show();
 
         testWordItems.get(index).setIsMark(0);
@@ -333,7 +336,7 @@ public class TestActivity extends AppCompatActivity {
     public void selectWrongAnswer() {
         Toast toast = Toast.makeText(getApplicationContext(), "틀렸습니다", Toast.LENGTH_SHORT);
         //toast.setView(imageView);
-        toast.setGravity(Gravity.CENTER, 50, 50);
+        //toast.setGravity(Gravity.CENTER, 50, 50);
         toast.show();
 
         for (int i = 0; i < 4; i++) {
@@ -407,40 +410,39 @@ public class TestActivity extends AppCompatActivity {
 
     }
 
-//    public class Delay {
-//        private final int MESSAGE_WHAT = 1;
-//
-//        Handler handler = new Handler(new Handler.Callback() {
-//
-//            @Override
-//            public boolean handleMessage(Message msg) {
-//                // TODO Auto-generated method stub
-//                if (msg.what == MESSAGE_WHAT) {
-//                    new Runnable() {
-//
-//                        @Override
-//                        public void run() {
-//                            // TODO Auto-generated method stub
-//
-//                        }
-//                    };
-//                }
-//                return false;
-//            }
-//        });
-//
-//        private void sendDelayMessage() {
-//            Message msg = handler.obtainMessage(MESSAGE_WHAT);
-//            handler.sendMessageDelayed(msg, 3000);
-//        }
-//
-//        private void removeMessage() {
-//            handler.removeMessages(MESSAGE_WHAT);
-//        }
-//
-//    }
+    public class Delay {
+        private final int MESSAGE_WHAT = 1;
 
-    public void endTest(ArrayList<WordItem> testMeaning, ArrayList<WordItem> testWordItems, int index) {
+        Handler handler = new Handler(new Handler.Callback() {
+
+            @Override
+            public boolean handleMessage(Message msg) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                if (msg.what == MESSAGE_WHAT) {
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            startTest();
+                        }
+                    };
+                }
+                return false;
+            }
+        });
+
+        private void sendDelayMessage() {
+            Message msg = handler.obtainMessage(MESSAGE_WHAT);
+            handler.sendMessageDelayed(msg, 3000);
+        }
+
+        private void removeMessage() {
+            handler.removeMessages(MESSAGE_WHAT);
+        }
+
+    }
+
+    public void endTest(int index) {
         int id;
         int day;
         int wordNum;
@@ -452,66 +454,75 @@ public class TestActivity extends AppCompatActivity {
         int wrong = 0;
         //////////////////////////////////////////////////
         //도중에 나갈경우 DataUpdate 를 할것인가 말것인가?
-
-        Collections.sort(testWordItems, new WordItemIdComparator());
-        for (int i = 0; i < testWordItems.size(); i++) {
-            Log.d("test", testWordItems.get(i).getMeaning());
-        }
-
-        for (int i = 0; i < testWordItems.size(); i++) {
-
-            id = (i + 1) + select_Stage * 30;
-            day = testWordItems.get(i).getDay();
-            wordNum = testWordItems.get(i).getWordNum();
-            isMark = testWordItems.get(i).getIsMark();
-            word = testWordItems.get(i).getWord();
-            meaning = testWordItems.get(i).getMeaning();
-
-            mDBHelper.UpdateWord(day, wordNum, isMark, word, meaning, id);
-
-            if (testWordItems.get(i).getIsMark() == 1) {
-                wrong++;
-            } else if (testWordItems.get(i).getIsMark() == 0) {
-                correct++;
+        //반영안되게
+        if (index != 30) {
+            Intent intent = new Intent(this, TestList.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        } else {
+            Collections.sort(testWordItems, new WordItemIdComparator());
+            for (int i = 0; i < testWordItems.size(); i++) {
+                Log.d("test", testWordItems.get(i).getMeaning());
             }
+
+            for (int i = 0; i < testWordItems.size(); i++) {
+
+                id = (i + 1) + select_Stage * 30;
+                day = testWordItems.get(i).getDay();
+                wordNum = testWordItems.get(i).getWordNum();
+                isMark = testWordItems.get(i).getIsMark();
+                word = testWordItems.get(i).getWord();
+                meaning = testWordItems.get(i).getMeaning();
+
+                mDBHelper.UpdateWord(day, wordNum, isMark, word, meaning, id);
+
+                if (testWordItems.get(i).getIsMark() == 1) {
+                    wrong++;
+                } else if (testWordItems.get(i).getIsMark() == 0) {
+                    correct++;
+                }
+            }
+
+
+            Intent intent = new Intent(this, TestResult.class);
+            intent.putExtra("stage",select_Stage);
+            intent.putExtra("correct", correct);
+            intent.putExtra("wrong", wrong);
+            startActivity(intent);
+            finish();
         }
-
-
-        Intent intent = new Intent(this, TestList.class);
-        startActivity(intent);
-        finish();
 
 
     }
 
 
-//
-//    // 마지막으로 뒤로 가기 버튼을 눌렀던 시간 저장
-//    private long backKeyPressedTime = 0;
-//    // 첫 번째 뒤로 가기 버튼을 누를 때 표시
-//    private Toast toast;
-//
-//    @Override
-//    public void onBackPressed() {
-//        //super.onBackPressed();
-//        // 기존 뒤로 가기 버튼의 기능을 막기 위해 주석 처리 또는 삭제
-//
-//        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
-//        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지났으면 Toast 출력
-//        // 2500 milliseconds = 2.5 seconds
-//        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
-//            backKeyPressedTime = System.currentTimeMillis();
-//            toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
-//            toast.show();
-//            return;
-//        }
-//        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
-//        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지나지 않았으면 종료
-//        if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
-//            finish();
-//            toast.cancel();
-//            toast = Toast.makeText(this, "이용해 주셔서 감사합니다.", Toast.LENGTH_LONG);
-//            toast.show();
-//        }
-//    }
+    // 마지막으로 뒤로 가기 버튼을 눌렀던 시간 저장
+    private long backKeyPressedTime = 0;
+    // 첫 번째 뒤로 가기 버튼을 누를 때 표시
+    private Toast toast;
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        // 기존 뒤로 가기 버튼의 기능을 막기 위해 주석 처리 또는 삭제
+
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지났으면 Toast 출력
+        // 2500 milliseconds = 2.5 seconds
+        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지나지 않았으면 종료
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+            endTest(index);
+            toast.cancel();
+            toast = Toast.makeText(this, "이용해 주셔서 감사합니다.", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
 }
