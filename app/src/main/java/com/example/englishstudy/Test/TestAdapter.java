@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.englishstudy.R;
 import com.example.englishstudy.global.DBHelper;
 import com.example.englishstudy.global.Stage_Item;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -56,9 +59,11 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        String correct = Integer.toString(mDayList.get(position).getCorrect())+"/30";
         viewHolder.text_day.setText(mDayList.get(position).getStage());
         viewHolder.text_state.setText(mDayList.get(position).getRunning());
-
+        viewHolder.test_StageProgress.setProgress(mDayList.get(position).getCorrect());
+        viewHolder.test_tv_Running.setText("진행률: "+correct);
         //isSelected(viewHolder,position);
        //selectOnKey(viewHolder,position);
     }
@@ -72,13 +77,16 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView text_day;
         private TextView text_state;
-        private CardView cardView;
+        private TextView test_tv_Running;
+        private ProgressBar test_StageProgress;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             text_day = itemView.findViewById(R.id.text_day);
             text_state = itemView.findViewById(R.id.text_state);
+            test_StageProgress = itemView.findViewById(R.id.test_StageProgress);
+            test_tv_Running = itemView.findViewById(R.id.test_tv_Running);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

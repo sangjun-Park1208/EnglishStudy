@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.englishstudy.Review.ReviewActivity;
 import com.example.englishstudy.Review.ReviewList;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DBHelper mDBHelper;
     private ArrayList<WordItem> mWorditem;
+    private TextView main_tv_Progress;
     private ProgressBar progressBar;
     private Button mbutton;
     private Button test1;
@@ -39,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setInit();//DB 세팅
 
         //오늘의 달성률
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setProgress(50);
+        setProgressBar();
 
         //test 화면 넘어가기
         test1 = findViewById(R.id.test1);
@@ -101,4 +102,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void setProgressBar(){
+        int correct=0;
+        int wrong=0;
+
+        mDBHelper = new DBHelper(this);
+        mWorditem = new ArrayList<>();
+        mWorditem=mDBHelper.getWordList();//DB 아이템들 끌고오기
+
+        for(int i=0; i< 900;i++){
+            if(mWorditem.get(i).getIsMark()==0){
+                correct++;
+            }
+            else if(mWorditem.get(i).getIsMark()==1){
+                wrong++;
+            }
+        }
+
+        main_tv_Progress = findViewById(R.id.main_tv_Progress);
+        main_tv_Progress.setText("오늘의 달성률: "+correct+"/900");
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setProgress(correct);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setProgressBar();
+    }
 }

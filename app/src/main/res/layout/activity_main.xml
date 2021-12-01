@@ -31,7 +31,7 @@
         >
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/main_tv_Progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="오늘의 달성률"
@@ -48,7 +48,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:max="100"
+            android:max="900"
             />
 
         <Button
