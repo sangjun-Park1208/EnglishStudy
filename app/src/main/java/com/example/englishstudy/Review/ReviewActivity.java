@@ -19,76 +19,96 @@ import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
 
-public class ReviewActivity extends AppCompatActivity{
-
+public class ReviewActivity extends AppCompatActivity {
     private Intent intent;
-    private int index;
+    private int stage,index;
 
-    private TextView mstage;
-    private TextView mprogress;
-    private TextView mword;
-    private TextView mmeaning;
+    private TextView txt_stage, txt_progress, txt_word, txt_meaning;
     private ArrayList<WordItem> mWordItem;
     private DBHelper mDBHelper;
-    private Button bt1;
-    private Button bt2;
-    private int total=0;
-    private int progress=0;
-    private int check;
-    private int escape;
-
+    private Button btn_1, btn_2;
+    private int total = 0, progress = 1,check,i,before;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_learn);
 
-        mDBHelper=new DBHelper(this);
-        mWordItem=new ArrayList<>();
+        mDBHelper = new DBHelper(this);
+        mWordItem = new ArrayList<>();
 
-        mWordItem=mDBHelper.getWordList();//DB 아이템들 끌고오기
-        intent=getIntent();
-        index=intent.getIntExtra("Stage",0);
+        mWordItem = mDBHelper.getWordList();//DB 아이템들 끌고오기
+        intent = getIntent();
+        stage = intent.getIntExtra("Stage", 0);
+        index = stage*30;
 
-        mstage=(TextView) findViewById(R.id.memorization_text);
-        mstage.setText("stage"+Integer.toString(index + 1));
-        mprogress=(TextView) findViewById(R.id.vocalearn_progress);
-        mword = (TextView) findViewById(R.id.word);
-        mmeaning = (TextView) findViewById(R.id.meaning);
-        Log.d("superoid","superoid2");
+        txt_stage=(TextView) findViewById(R.id.memorization_text);
+        txt_stage.setText("Stage"+Integer.toString(stage+1));
+        txt_progress=(TextView) findViewById(R.id.vocalearn_progress);
+        txt_word=(TextView) findViewById(R.id.word);
+        txt_meaning=(TextView) findViewById(R.id.meaning);
 
         //단어 화면에 띄우기. id는 1부터, index는 0부터
-        for(int i=0;i<30;i++) {
+        for(i=0;i<30;i++) {
             if(mWordItem.get(index+i).getIsMark()==1)
                 total++;
         }
+//        if(total==0)
+//            startActivity(new Intent(this, ReviewList.class));
 
-        for(int i=0;i<30;i++) {
-            if(mWordItem.get(index+i).getIsMark()==1) {
-                mword.setText(mWordItem.get(index+i).getWord());
-                mmeaning.setText(mWordItem.get(index+i).getMeaning());
+        //처음 들어오자마자 화면
+        txt_progress.setText(1+"/"+total);
+        for(i=0;i<30;i++) {
+            if(mWordItem.get(index+i).getIsMark()==1) {//처음 들어오자마자 화면 띄우기
+                txt_word.setText(mWordItem.get(index+i).getWord());
+                txt_meaning.setText(mWordItem.get(index+i).getMeaning());
+                txt_progress.setText(progress+"/"+total);
                 progress++;
-                mprogress.setText(progress+"/"+total);
                 check=i+index;
                 break;
             }
         }
-        //o,x버튼 눌렀을때
-        bt1=(Button) findViewById(R.id.known);
-        bt1.setOnClickListener(new View.OnClickListener() {//O버튼 눌렀을때
+
+        btn_1=(Button) findViewById(R.id.known);
+        btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WordItem curworditem=mWordItem.get(check);
-                mDBHelper.UpdateWord(curworditem.getDay(),curworditem.getWordNum(),0,curworditem.getWord(),curworditem.getMeaning(),curworditem.getId());
+                if(!end(index)) {//ismarked 0으로 바꿔주기
+                    WordItem cur = mWordItem.get(check);
+                    mDBHelper.UpdateWord(cur.getDay(), cur.getWordNum(), 0, cur.getWord(), cur.getMeaning(), cur.getId());
+                }
 
-                for(int i=check+1;i<index+31;i++){
-                    escape=i;
+                for(i=check+1;i<index+30;i++){
                     if(mWordItem.get(i).getIsMark()==1) {
                         check = i;
                         break;
                     }
                 }
-                if(escape>=index+29) {
+                if(progress<=total) {
+                    txt_word.setText(mWordItem.get(check).getWord());
+                    txt_meaning.setText(mWordItem.get(check).getMeaning());
+                    txt_progress.setText(progress + "/" + total);
+                    progress++;
+                    check = i;
+                }
+
+                else if(progress>total&&end(index)){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    String[] strChoiceItems = {"확인"};
+                    builder.setTitle("완료하였습니다.");
+                    builder.setItems(strChoiceItems, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int dialogposition) {
+                            //O가 선택되었을 때
+                            if (dialogposition == 0) {
+                                startActivity(new Intent(view.getContext(), ReviewList.class));
+                            }
+                        }
+                    });
+                    builder.create();
+                    builder.show();
+                }
+                else{
                     //AlertDialog 를 이용한 팝업 창
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     String[] strChoiceItems = {"O", "X"};
@@ -100,7 +120,9 @@ public class ReviewActivity extends AppCompatActivity{
                             if (position == 0) {
                                 //ReviewActivity 로 이동
                                 //이때 현재 선택된 Stage 값을 Intent 로 전달
-                                startActivity(new Intent(view.getContext(), ReviewActivity.class));
+                                Intent intent = new Intent(view.getContext(), ReviewActivity.class);
+                                intent.putExtra("Stage", stage);
+                                startActivity(intent);
                             }
                             //X가 선택되었을 때
                             else if (position == 1) {
@@ -111,26 +133,27 @@ public class ReviewActivity extends AppCompatActivity{
                     builder.create();
                     builder.show();
                 }
-                if(progress<total) {
-                    mword.setText(mWordItem.get(check).getWord());
-                    mmeaning.setText(mWordItem.get(check).getMeaning());
-                    progress++;
-                    mprogress.setText(progress + "/" + total);
-                }
             }
         });
-        bt2=(Button) findViewById(R.id.unknown);
-        bt2.setOnClickListener(new View.OnClickListener() {//X버튼 눌렀을때
+
+        btn_2=(Button) findViewById(R.id.unknown);
+        btn_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = check + 1; i < index + 31; i++) {
-                    escape=i;
-                    if (mWordItem.get(i).getIsMark() == 1) {
+                for(i=check+1;i<index+30;i++){
+                    if(mWordItem.get(i).getIsMark()==1) {
                         check = i;
                         break;
                     }
                 }
-                if (escape >= index + 29){
+                if(progress<=total) {
+                    txt_word.setText(mWordItem.get(check).getWord());
+                    txt_meaning.setText(mWordItem.get(check).getMeaning());
+                    txt_progress.setText(progress + "/" + total);
+                    progress++;
+                    check = i;
+                }
+                else{
                     //AlertDialog 를 이용한 팝업 창
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     String[] strChoiceItems = {"O", "X"};
@@ -142,7 +165,9 @@ public class ReviewActivity extends AppCompatActivity{
                             if (position == 0) {
                                 //ReviewActivity 로 이동
                                 //이때 현재 선택된 Stage 값을 Intent 로 전달
-                                startActivity(new Intent(view.getContext(), ReviewActivity.class));
+                                Intent intent = new Intent(view.getContext(), ReviewActivity.class);
+                                intent.putExtra("Stage", stage);
+                                startActivity(intent);
                             }
                             //X가 선택되었을 때
                             else if (position == 1) {
@@ -153,19 +178,17 @@ public class ReviewActivity extends AppCompatActivity{
                     builder.create();
                     builder.show();
                 }
-                if (progress < total) {
-                    mword.setText(mWordItem.get(check).getWord());
-                    mmeaning.setText(mWordItem.get(check).getMeaning());
-                    progress++;
-                    mprogress.setText(progress + "/" + total);
-                }
             }
-
         });
-
-
     }
 
-
-
+    private boolean end(int index){
+        mWordItem = mDBHelper.getWordList();//DB 아이템들 끌고오기
+        for(i=index;i<index+30;i++) {
+            if (mWordItem.get(i).getIsMark() == 1) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

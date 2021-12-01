@@ -25,9 +25,6 @@ public class ReviewList extends AppCompatActivity {
     private ArrayList<WordItem> mWorditem;
     private int check=1;
 
-    public static Context context_stage;
-    public static int stage_index;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,15 +45,15 @@ public class ReviewList extends AppCompatActivity {
 
         ArrayList<StageItem> mreviewDayItems=new ArrayList<>();
         for(int i=1;i<=30;i++){//스테이지랑 complete 여부 체크
-//            for(int j=0;j<30;j++){
-//                if(mWorditem.get(i).getIsMark()==0)
-//                    check=0;
-//            }
-//            if(check==1)//
-                mreviewDayItems.add(new StageItem("Stage "+i,"complete"));//Stage 아이템 추가
-//            else//
-//                mreviewDayItems.add(new Stage_Item("Stage "+i,"challenge"));
-//            check=1;
+            for(int j=(i-1)*30;j<(i-1)*30+30;j++){//각 스테이지별로 마크 체크
+                if(mWorditem.get(j).getIsMark()==1)
+                    check=0;
+            }
+            if(check==1)//
+                mreviewDayItems.add(new StageItem("Stage"+i,"complete"));//Stage 아이템 추가
+            else//
+                mreviewDayItems.add(new StageItem("Stage"+i,"try"));
+            check=1;
         }
         mReviewAdapter.setmDayList(mreviewDayItems);
 
@@ -109,8 +106,8 @@ public class ReviewList extends AppCompatActivity {
     }
 
     private boolean stage_check(int position){//반복할 단어가 있으면 true, 없으면 false
-        for(int i=0;i<30;i++) {
-            if(mWorditem.get(position+i).getIsMark()==1)
+        for(int i=position*30;i<position*30+30;i++) {
+            if(mWorditem.get(i).getIsMark()==1)
                 return true;
         }
         return false;

@@ -16,6 +16,7 @@
             android:label="TestListActivity" />
         <activity
             android:name=".Review.ReviewActivity"
+            android:noHistory="true"
             android:exported="false"
             android:label="RevieActivity" />
         <activity
