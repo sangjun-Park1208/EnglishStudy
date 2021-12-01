@@ -1,10 +1,12 @@
 package com.example.englishstudy.Test;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
@@ -505,8 +507,6 @@ public class TestActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        // 기존 뒤로 가기 버튼의 기능을 막기 위해 주석 처리 또는 삭제
-
         // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
         // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지났으면 Toast 출력
         // 2500 milliseconds = 2.5 seconds
@@ -521,7 +521,7 @@ public class TestActivity extends AppCompatActivity {
         if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
             endTest(index);
             toast.cancel();
-            toast = Toast.makeText(this, "이용해 주셔서 감사합니다.", Toast.LENGTH_LONG);
+            toast = Toast.makeText(this,"Test 종료",Toast.LENGTH_LONG);
             toast.show();
         }
     }
