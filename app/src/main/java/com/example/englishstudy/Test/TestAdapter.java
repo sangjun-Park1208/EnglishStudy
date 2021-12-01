@@ -114,28 +114,28 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void isSelected(ViewHolder viewHolder, int position){
-        if(selectedPosition == position){
-            viewHolder.itemView.setBackgroundColor(Color.GRAY);
-        }
-        else{
-            viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
-        }
-
-        viewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                oldPosition = selectedPosition;
-                selectedPosition = position;
-
-                notifyItemChanged(oldPosition);
-                notifyItemChanged(selectedPosition);
-                return false;
-            }
-
-        });
-
-    }
+//    public void isSelected(ViewHolder viewHolder, int position){
+//        if(selectedPosition == position){
+//            viewHolder.itemView.setBackgroundColor(Color.GRAY);
+//        }
+//        else{
+//            viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
+//        }
+//
+//        viewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                oldPosition = selectedPosition;
+//                selectedPosition = position;
+//
+//                notifyItemChanged(oldPosition);
+//                notifyItemChanged(selectedPosition);
+//                return false;
+//            }
+//
+//        });
+//
+//    }
 
 //    public void selectOnKey(ViewHolder viewHolder, int position){
 //

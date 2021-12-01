@@ -30,14 +30,13 @@ public class TestResult extends AppCompatActivity {
         int correct;
         int wrong;
 
+        //Intent 로 stage, 정답 개수, 오답 개수 전달 받음
         intent = getIntent();
         stage = intent.getIntExtra("stage", 0);
         correct = intent.getIntExtra("correct", 0);
         wrong = intent.getIntExtra("wrong", 0);
 
-        Log.d("dd", Integer.toString(correct));
-        Log.d("dd", Integer.toString(wrong));
-
+        //TextView, Button 참조
         test_tv_Stage = findViewById(R.id.test_tv_Stage);
         test_tv_Stage.setText("Stage " + Integer.toString(stage+1));
 
@@ -48,9 +47,13 @@ public class TestResult extends AppCompatActivity {
         test_tv_Wrong.setText("오답: " + Integer.toString(wrong));
 
         test_bt_OK = findViewById(R.id.test_bt_ok);
+        test_bt_Retry = findViewById(R.id.test_bt_Retry);
+
+        //OK 버튼 클릭 시
         test_bt_OK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //stage, 정답 개수, 오답 개수 TestList 로 전달 후 종료
                 Intent intent = new Intent(v.getContext(), TestList.class);
                 intent.putExtra("stage",stage);
                 intent.putExtra("correct", correct);
@@ -59,10 +62,12 @@ public class TestResult extends AppCompatActivity {
                 finish();
             }
         });
-        test_bt_Retry = findViewById(R.id.test_bt_Retry);
+
+        //Retry 버튼 클릭 시
         test_bt_Retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //해당 Stage Test 다시 시작
                 Intent intent = new Intent(v.getContext(), TestActivity.class);
                 intent.putExtra("Stage",stage);
                 startActivity(intent);

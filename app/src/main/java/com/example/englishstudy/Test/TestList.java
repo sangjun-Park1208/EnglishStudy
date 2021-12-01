@@ -160,11 +160,14 @@ public class TestList extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
+
+        //Intent 로 stage, 정답 개수, 오답 개수 전달받음
         String stage = "Stage"+intent.getIntExtra("stage",0)+1;
         String running;
         int correct =  intent.getIntExtra("correct",0);
         int wrong =  intent.getIntExtra("wrong",0);
 
+        //모두 정답일 경우 Complete / 아닐 경우 : Challenge
         if(correct==30){
             running = "Complete";
         }
@@ -172,9 +175,12 @@ public class TestList extends AppCompatActivity {
             running = "Challenge";
         }
 
+        //stage, running, 정답 개수, 오답 개수
+        //해당 Stage Update
         Stage_Item stageItem = new Stage_Item(stage,running,correct,wrong);
         mDayList.set(intent.getIntExtra("stage",0),stageItem);
 
+        //수정한 결과 RecyclerView 에 반영
         if (testAdapter == null) {
             testAdapter = new TestAdapter(mDayList, this);
         }
