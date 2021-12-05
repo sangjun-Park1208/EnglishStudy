@@ -117,4 +117,10 @@ public class ReviewList extends AppCompatActivity {
         }
         return false;
     }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        finish();
+    }
 }
