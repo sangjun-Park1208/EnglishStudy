@@ -1,7 +1,6 @@
 package com.example.englishstudy.Review;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishstudy.R;
 import com.example.englishstudy.Test.TestAdapter;
-import com.example.englishstudy.global.StageItem;
+import com.example.englishstudy.global.Stage_Item;
 
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     private int oldPosition=-1;
     private int selectedPosition=-1;
 
-    private ArrayList<StageItem> mDayList;
+    private ArrayList<Stage_Item> mDayList;
     ReviewOnStageItemClickListener listener;
 
 
@@ -48,7 +47,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             listener.onItemClick(holder,view,position);
     }
 
-    public void setmDayList(ArrayList<StageItem> list){
+    public void setmDayList(ArrayList<Stage_Item> list){
         this.mDayList=list;
         notifyDataSetChanged();
     }
@@ -102,7 +101,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
         }
 
-        public void onBind(StageItem stageItem) {
+        public void onBind(Stage_Item stageItem) {
             stage.setText(stageItem.getStage());
             p_f.setText(stageItem.getRunning());
         }

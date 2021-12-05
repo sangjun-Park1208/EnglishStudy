@@ -10,18 +10,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.example.englishstudy.R;
 import com.example.englishstudy.global.DBHelper;
-import com.example.englishstudy.global.StageItem;
+import com.example.englishstudy.global.Stage_Item;
 import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
 
 public class MemorizationList extends AppCompatActivity {
     private ArrayList<WordItem> mWordItem;
-    private ArrayList<StageItem> mStageList;
+    private ArrayList<Stage_Item> mStageList;
     private MemorizationAdapter memorizationAdapter;
     private DBHelper mDBHelper;
 
@@ -45,7 +44,7 @@ public class MemorizationList extends AppCompatActivity {
 
 
         for(int i=1;i<=30;i++){
-            mStageList.add(new StageItem(""+i, "complete"));
+            mStageList.add(new Stage_Item(""+i, "complete",0,0));
         }
         memorizationAdapter.setmStageList(mStageList);
 

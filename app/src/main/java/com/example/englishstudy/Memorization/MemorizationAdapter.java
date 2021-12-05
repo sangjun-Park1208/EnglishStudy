@@ -10,9 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishstudy.R;
-import com.example.englishstudy.Test.TestAdapter;
 import com.example.englishstudy.global.DBHelper;
-import com.example.englishstudy.global.StageItem;
+import com.example.englishstudy.global.Stage_Item;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 
 public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapter.ViewHolder> {
 
-    private ArrayList<StageItem> mStageList;
+    private ArrayList<Stage_Item> mStageList;
     private Context mContext;
     private DBHelper mDBHelper;
     private MemorizationAdapter.OnItemClickListener onItemClickListener = null;
@@ -35,12 +34,12 @@ public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapte
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void setmStageList(ArrayList<StageItem> list){
+    public void setmStageList(ArrayList<Stage_Item> list){
         this.mStageList = list;
         notifyDataSetChanged();
     }
 
-    public MemorizationAdapter(ArrayList<StageItem> mStageList, Context mContext){
+    public MemorizationAdapter(ArrayList<Stage_Item> mStageList, Context mContext){
         this.mStageList = mStageList;
         this.mContext = mContext;
         this.mDBHelper = new DBHelper(mContext);

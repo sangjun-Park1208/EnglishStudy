@@ -15,7 +15,7 @@ import android.view.View;
 import com.example.englishstudy.R;
 import com.example.englishstudy.Test.TestActivity;
 import com.example.englishstudy.global.DBHelper;
-import com.example.englishstudy.global.StageItem;
+import com.example.englishstudy.global.Stage_Item;
 import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
@@ -46,14 +46,16 @@ public class ReviewList extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mReviewAdapter);
 
-        ArrayList<StageItem> mreviewDayItems=new ArrayList<>();
+        ArrayList<Stage_Item> mreviewDayItems=new ArrayList<>();
+        int correct=0;
+        int wrong=0;
         for(int i=1;i<=30;i++){//스테이지랑 complete 여부 체크
 //            for(int j=0;j<30;j++){
 //                if(mWorditem.get(i).getIsMark()==0)
 //                    check=0;
 //            }
 //            if(check==1)//
-                mreviewDayItems.add(new StageItem("Stage "+i,"complete"));//Stage 아이템 추가
+            mreviewDayItems.add(new Stage_Item("Stage "+i,"complete",correct,wrong));//Stage 아이템 추가
 //            else//
 //                mreviewDayItems.add(new Stage_Item("Stage "+i,"challenge"));
 //            check=1;

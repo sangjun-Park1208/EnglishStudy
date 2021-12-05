@@ -81,22 +81,28 @@ public class MemorizationActivity extends AppCompatActivity {
         // DB에서 단어 데이터 불러오기
 
         mSelectedItem = new ArrayList<>();
-        for(int i=0; i<30;i++) { mSelectedItem.add(i, mWordItem.get(i+selected_StageNum * 30)); }
+        for(int i=0; i<30;i++) {
+            mSelectedItem.add(i, mWordItem.get(i+selected_StageNum * 30));
+            Log.d("TAGTAG",mSelectedItem.get(i).getWord());
+        }
         // 화면에 표시할 30개 단어 불러오기(Primary key 값으로 불러옴)
 
         for(int i=0; i<30; i++){
-            String tmpWord = mSelectedItem.get(i).getWord();
-            String tmpMeaning = mSelectedItem.get(i).getMeaning();
+            mem_word.setText(mWordItem.get(selected_StageNum+i).getWord());
+            mem_meaning.setText(mWordItem.get(selected_StageNum+i).getMeaning());
 
-            Log.d("단어 : ",i+" 번째 - " + tmpWord);
-            Log.d("뜻 : ",i+" 번째 - " + tmpMeaning);
+            mem_known.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    
+
+                }
+            });
+
         }
-//        mem_known.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                WordItem curWord = mSelectedItem.get()
-//            }
-//        });
+
+
     }
 
 
