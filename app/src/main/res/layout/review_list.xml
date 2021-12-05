@@ -46,6 +46,15 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
+
+            <ProgressBar
+                android:id="@+id/review_prgressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:max="30" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

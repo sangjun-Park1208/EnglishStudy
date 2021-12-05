@@ -18,6 +18,7 @@
             android:launchMode="singleTask"/>
         <activity
             android:name=".Review.ReviewActivity"
+            android:noHistory="true"
             android:exported="false"
             android:label="RevieActivity" />
         <activity

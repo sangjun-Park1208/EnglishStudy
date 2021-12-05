@@ -1,6 +1,7 @@
 package com.example.englishstudy.Review;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
