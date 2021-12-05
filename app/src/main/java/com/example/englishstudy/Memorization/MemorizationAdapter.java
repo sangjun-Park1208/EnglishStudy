@@ -4,13 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishstudy.R;
-import com.example.englishstudy.Test.TestAdapter;
+import com.example.englishstudy.Review.ReviewAdapter;
 import com.example.englishstudy.global.DBHelper;
 import com.example.englishstudy.global.Stage_Item;
 
@@ -18,23 +19,26 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapter.ViewHolder> {
+public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapter.ViewHolder> implements MemorizationOnStageItemClickListener {
 
     private ArrayList<Stage_Item> mStageList;
     private Context mContext;
     private DBHelper mDBHelper;
     private MemorizationAdapter.OnItemClickListener onItemClickListener = null;
+    MemorizationOnStageItemClickListener listener;
 
-
-    public interface OnItemClickListener {
-        void onItemClick(View v, int curPos, Context mContext);
+    @Override
+    public void onItemClick(ReviewAdapter.ViewHolder holder, View view, int position){
+        if(listener!=null)
+            listener.onItemClick(holder,view,position);
     }
-    // 클릭 시 클릭된 위치와 해당 Context 를 넘겨 처리해 주는 인터페이스
 
+    @Override
     public void setMemOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
 
+    @Override
     public void setmStageList(ArrayList<Stage_Item> list){
         this.mStageList = list;
         notifyDataSetChanged();
@@ -57,22 +61,34 @@ public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapte
         return new ViewHolder(itemView);
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
+        holder.mem_StageNum.setText(mStageList.get(position).getStage());
+        holder.mem_State.setText(mStageList.get(position).getRunning());
+        holder.mem_progressBar1.setProgress(25); // 이거 왜 널포인터 익셉션,,?
+//        holder.mem_progressBar2.setProgress(mStageList.get(position).getCorrect());
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mem_StageNum;
-        private TextView mem_completeOrNot;
+        private TextView mem_State;
+        private ProgressBar mem_progressBar1;
+        private ProgressBar mem_progressBar2;
+
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
 
             mem_StageNum = itemView.findViewById(R.id.mem_stageNum1);
-            mem_completeOrNot = itemView.findViewById(R.id.mem_completeOrNot);
+            mem_State = itemView.findViewById(R.id.mem_State);
+            mem_progressBar1 = itemView.findViewById(R.id.mem_progressBar1);
+            mem_progressBar2 = itemView.findViewById(R.id.mem_progressBar2);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int curPos = getAdapterPosition();
                     if(curPos != RecyclerView.NO_POSITION){
-                        onItemClickListener.onItemClick(v, curPos, mContext);
+                        onItemClickListener.onItemClick(ViewHolder.this, v, curPos);
                     }
                 }
             });
@@ -80,11 +96,7 @@ public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapte
     }
 
 
-    @Override
-    public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        holder.mem_StageNum.setText(mStageList.get(position).getStage());
-        holder.mem_completeOrNot.setText(mStageList.get(position).getRunning());
-    }
+
 
     @Override
     public int getItemCount() {
