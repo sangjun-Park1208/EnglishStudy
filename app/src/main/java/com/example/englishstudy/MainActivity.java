@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private Button review1;
     private Button review2;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

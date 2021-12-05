@@ -21,8 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishstudy.R;
 import com.example.englishstudy.global.DBHelper;
-import com.example.englishstudy.global.StageItem;
-import com.example.englishstudy.global.StageItem;
+import com.example.englishstudy.global.Stage_Item;
+import com.example.englishstudy.global.Stage_Item;
 import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class TestList extends AppCompatActivity {
     private DBHelper mDBHelper;
     private Context mContext;
     private ArrayList<WordItem> mWordItem;
-    private ArrayList<StageItem> mDayList;
+    private ArrayList<Stage_Item> mDayList;
     private TestAdapter testAdapter;
 
     @Override
@@ -65,12 +65,12 @@ public class TestList extends AppCompatActivity {
             }
             //Mark 가 적어도 하나 있을 경우 Complete X : Challenge 표시
             if (isMark == true) {
-                mDayList.add(new StageItem("Stage" + Integer.toString(day + 1), "Challenge"));
+                mDayList.add(new Stage_Item("Stage" + Integer.toString(day + 1), "Challenge",0,0));
 
             }
             //Mark 가 없을 경우 모두 정답 : Complete 표시
             else {
-                mDayList.add(new StageItem("Stage" + Integer.toString(day + 1), "Complete"));
+                mDayList.add(new Stage_Item("Stage" + Integer.toString(day + 1), "Complete",0,0));
             }
         }
 

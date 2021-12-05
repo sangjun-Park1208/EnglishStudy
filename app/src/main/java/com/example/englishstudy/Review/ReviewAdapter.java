@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,12 +62,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView stage;
         TextView p_f;
+        ProgressBar progressBar;
 
         public ViewHolder(@NonNull View itemView, final ReviewOnStageItemClickListener listener) {
             super(itemView);
 
             stage=(TextView) itemView.findViewById(R.id.tv_number_review);
             p_f=(TextView) itemView.findViewById(R.id.tv_address_review);
+            progressBar=(ProgressBar) itemView.findViewById(R.id.review_prgressbar);
 
             itemView.setOnClickListener(new View.OnClickListener(){//아이템에 클릭이벤트 넣어주기
                 @Override
@@ -105,6 +108,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         public void onBind(Stage_Item stageItem) {
             stage.setText(stageItem.getStage());
             p_f.setText(stageItem.getRunning());
+            progressBar.setProgress(30-stageItem.getCorrect());
         }
     }
 }

@@ -23,10 +23,7 @@ import java.util.ArrayList;
 public class ReviewList extends AppCompatActivity {
     private DBHelper mDBHelper;
     private ArrayList<WordItem> mWorditem;
-    private int check=1;
-
-    public static Context context_stage;
-    public static int stage_index;
+    private int check=1, progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +44,21 @@ public class ReviewList extends AppCompatActivity {
         recyclerView.setAdapter(mReviewAdapter);
 
         ArrayList<Stage_Item> mreviewDayItems=new ArrayList<>();
-        int correct=0;
-        int wrong=0;
+
+        int nothing=0;//빈자리
         for(int i=1;i<=30;i++){//스테이지랑 complete 여부 체크
-//            for(int j=0;j<30;j++){
-//                if(mWorditem.get(i).getIsMark()==0)
-//                    check=0;
-//            }
-//            if(check==1)//
-            mreviewDayItems.add(new Stage_Item("Stage "+i,"complete",correct,wrong));//Stage 아이템 추가
-//            else//
-//                mreviewDayItems.add(new Stage_Item("Stage "+i,"challenge"));
-//            check=1;
+            progress=0;
+            for(int j=(i-1)*30;j<(i-1)*30+30;j++){//각 스테이지별로 마크 체크
+                if(mWorditem.get(j).getIsMark()==1) {
+                    check = 0;//완료, 다시시도 체크
+                    progress++;//개수 체크해서 progressbar에 반영
+                }
+            }
+            if(check==1)//
+                mreviewDayItems.add(new Stage_Item("Stage"+i,"complete",progress,nothing));//Stage 아이템 추가
+            else//
+                mreviewDayItems.add(new Stage_Item("Stage"+i,"try",progress,nothing));
+            check=1;
         }
         mReviewAdapter.setmDayList(mreviewDayItems);
 
@@ -111,8 +111,8 @@ public class ReviewList extends AppCompatActivity {
     }
 
     private boolean stage_check(int position){//반복할 단어가 있으면 true, 없으면 false
-        for(int i=0;i<30;i++) {
-            if(mWorditem.get(position+i).getIsMark()==1)
+        for(int i=position*30;i<position*30+30;i++) {
+            if(mWorditem.get(i).getIsMark()==1)
                 return true;
         }
         return false;
