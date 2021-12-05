@@ -29,6 +29,9 @@
             android:name=".Memorization.MemorizationActivity"
             android:exported="false"
             android:label="Memorization" />
+        <activity android:name=".Memorization.MemorizationList"
+            android:exported="false"
+            android:label="MemorizationActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
