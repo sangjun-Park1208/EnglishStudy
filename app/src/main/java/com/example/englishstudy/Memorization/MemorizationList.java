@@ -1,5 +1,6 @@
 package com.example.englishstudy.Memorization;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +33,9 @@ public class MemorizationList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memorization_list);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         mDBHelper = new DBHelper(this);
         mWordItem = new ArrayList<>();
