@@ -1,5 +1,6 @@
 package com.example.englishstudy.Test;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -14,10 +15,12 @@ import android.os.Bundle;
 
 import android.os.Handler;
 import android.os.Message;
+import android.print.PrintAttributes;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -84,6 +87,9 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         imageView_Correct = new ImageView(getApplicationContext());
         imageView_Correct.setImageResource(R.drawable.image_correct_retro);
@@ -360,7 +366,7 @@ public class TestActivity extends AppCompatActivity {
     public void selectCorrectAnswer() {
         Toast toast = Toast.makeText(getApplicationContext(), "정답입니다", Toast.LENGTH_SHORT);
         toast.setView(imageView_Correct);
-        toast.setGravity(Gravity.CENTER, 50, 50);
+        toast.setGravity(Gravity.CENTER|Gravity.TOP, 50, 50);
         toast.show();
 
         //정답: Mark  0으로/ testMeaning 초기화 / 다음 단어로
@@ -373,7 +379,7 @@ public class TestActivity extends AppCompatActivity {
     public void selectWrongAnswer() {
         Toast toast = Toast.makeText(getApplicationContext(), "틀렸습니다", Toast.LENGTH_SHORT);
         toast.setView(imageView_Wrong);
-        toast.setGravity(Gravity.CENTER, 50, 50);
+        toast.setGravity(Gravity.CENTER|Gravity.TOP, 50, 50);
         toast.show();
 
         //1,2,3,4번 중 정답을 찾아 파란색으로 표시

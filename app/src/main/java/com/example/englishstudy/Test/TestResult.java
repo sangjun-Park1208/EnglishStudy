@@ -1,5 +1,6 @@
 package com.example.englishstudy.Test;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -25,6 +26,11 @@ public class TestResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_result);
+
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
 
         int stage;
         int correct;

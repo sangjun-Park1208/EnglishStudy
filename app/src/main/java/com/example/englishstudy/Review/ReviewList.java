@@ -88,7 +88,7 @@ public class ReviewList extends AppCompatActivity {
                 else {
                     //AlertDialog 를 이용한 팝업 창
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    String[] strChoiceItems = {"O", "X"};
+                    String[] strChoiceItems = {"예", "아니오"};
                     builder.setTitle("복습을 시작하시겠습니까?");
                     builder.setItems(strChoiceItems, new DialogInterface.OnClickListener() {
                         @Override

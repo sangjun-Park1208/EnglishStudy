@@ -91,7 +91,7 @@ public class MemorizationList extends AppCompatActivity {
                 }
                 else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    String[] strChoiceItems = {"O", "X"};
+                    String[] strChoiceItems = {"예", "아니오"};
                     builder.setTitle("암기를 시작하시겠습니까?");
                     builder.setItems(strChoiceItems, new DialogInterface.OnClickListener() {
                         @Override

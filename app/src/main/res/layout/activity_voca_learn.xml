@@ -101,11 +101,11 @@
             android:layout_width="150sp"
             android:layout_height="150sp"
             android:layout_marginRight="16sp"
-            android:text="O"
+            android:text="외웠어요"
             android:fontFamily="@font/neodgm"
             android:background="@drawable/buttonbackground_retro"
             android:textColor="@color/black"
-            android:textSize="48sp"
+            android:textSize="25sp"
             android:alpha="0.8"
             />
 
@@ -114,11 +114,11 @@
             android:layout_width="150sp"
             android:layout_height="150sp"
             android:layout_marginLeft="16sp"
-            android:text="X"
+            android:text="못 외웠어요"
             android:background="@drawable/buttonbackground_retro"
             android:fontFamily="@font/neodgm"
             android:textColor="@color/black"
-            android:textSize="48sp"
+            android:textSize="25sp"
             android:alpha="0.8"
             />
     </LinearLayout>

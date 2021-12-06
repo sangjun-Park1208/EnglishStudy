@@ -13,6 +13,7 @@ import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -38,6 +39,9 @@ public class TestList extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_list);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         mDBHelper = new DBHelper(this);
         mWordItem = new ArrayList<>();
