@@ -14,15 +14,18 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="160dp"
-            android:layout_height="70dp"
+            android:layout_width="180dp"
+            android:layout_height="90dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+            android:paddingTop="13dp"
             android:text="복습"
+            android:textColor="@color/black"
             android:textSize="70dp"
             android:background="@drawable/buttonbackground_retro"
             android:fontFamily="@font/neodgm"
             android:textAlignment="center"
+
             />
 
         <androidx.recyclerview.widget.RecyclerView
