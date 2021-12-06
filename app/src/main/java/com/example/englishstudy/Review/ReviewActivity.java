@@ -103,6 +103,8 @@ public class ReviewActivity extends AppCompatActivity {
                 txt_progress.setText(progress + "/" + total);
                 progress++;
                 check = listindex + index;
+
+                drawerLayout.closeDrawer(drawerView);
             }
         });
 
