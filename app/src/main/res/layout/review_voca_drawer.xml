@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:id="@+id/drawerView"
+    android:alpha="0.8"
    >
 
         <TextView
@@ -15,6 +16,8 @@
             android:fontFamily="@font/neodgm"
             android:textAlignment="center"
             android:textSize="24sp"
+            android:textColor="@color/black"
+
             android:text="단어 목록">
 
         </TextView>

@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/drawer_layout"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/main_background"
+    >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -21,6 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0sp"
         android:layout_marginTop="16sp"
+        android:textColor="@color/black"
+
         android:layout_marginBottom="16sp"
         android:layout_weight="10"
         android:fontFamily="@font/neodgm"
@@ -36,11 +40,13 @@
 
         <Button
             android:id="@+id/vocalearn_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
             android:fontFamily="@font/neodgm"
+            android:textColor="@color/black"
             android:layout_marginRight="70sp"
             android:text="목록"
+            android:background="@drawable/buttonbackground_retro"
             android:textSize="34sp" />
 
         <TextView
@@ -48,6 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/neodgm"
+            android:textColor="@color/black"
+            android:background=""
             android:text="1/30"
             android:layout_marginLeft="70sp"
             android:textSize="34sp" />
@@ -62,6 +70,7 @@
         android:paddingTop="30sp"
         android:text="English"
         android:maxLines="1"
+        android:textColor="@color/black"
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/neodgm"
         android:textSize="60sp" />
@@ -74,6 +83,7 @@
         android:layout_weight="10"
         android:paddingTop="30sp"
         android:text="영단어"
+        android:textColor="@color/black"
         android:maxLines="1"
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/neodgm"
@@ -94,7 +104,11 @@
             android:layout_marginRight="16sp"
             android:text="O"
             android:fontFamily="@font/neodgm"
-            android:textSize="48sp" />
+            android:background="@drawable/buttonbackground_retro"
+            android:textColor="@color/black"
+            android:textSize="48sp"
+            android:alpha="0.8"
+            />
 
         <Button
             android:id="@+id/unknown"
@@ -102,8 +116,12 @@
             android:layout_height="150sp"
             android:layout_marginLeft="16sp"
             android:text="X"
+            android:background="@drawable/buttonbackground_retro"
             android:fontFamily="@font/neodgm"
-            android:textSize="48sp" />
+            android:textColor="@color/black"
+            android:textSize="48sp"
+            android:alpha="0.8"
+            />
     </LinearLayout>
 
 </LinearLayout>
