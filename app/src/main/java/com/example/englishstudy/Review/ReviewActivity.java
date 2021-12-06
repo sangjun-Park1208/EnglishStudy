@@ -69,7 +69,7 @@ public class ReviewActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.review_drawer_recyclerView);
         ReviewDrawerAdapter mReviewDrawerAdapter=new ReviewDrawerAdapter();
-
+//
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mReviewDrawerAdapter);
 

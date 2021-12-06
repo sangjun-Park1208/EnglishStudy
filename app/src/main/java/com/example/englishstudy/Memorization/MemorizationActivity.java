@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +26,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.englishstudy.R;
-import com.example.englishstudy.Review.ReviewList;
+
 import com.example.englishstudy.global.DBHelper;
 import com.example.englishstudy.global.Stage_Item;
 import com.example.englishstudy.global.WordItem;
@@ -47,6 +48,7 @@ public class MemorizationActivity extends AppCompatActivity {
     private TextView mem_meaning; // 한글 뜻
     private Button mem_known; // O 버튼
     private Button mem_unknown; // X 버튼
+    private Button mem_list;
 
     private DBHelper mDBHelper; // DB
     private Context mContext;
@@ -62,6 +64,12 @@ public class MemorizationActivity extends AppCompatActivity {
     private int progressNum;
 
     protected int index=0;
+
+    // drawer
+    private ArrayList<MemorizationVocaItem> mMemorizationVocaItems;
+    private DrawerLayout drawerLayout;
+    private View drawerView;
+
 
 
     @Override
@@ -92,6 +100,47 @@ public class MemorizationActivity extends AppCompatActivity {
         mWordItem = new ArrayList<>();
         mWordItem = mDBHelper.getWordList();
         // DB에서 단어 데이터 불러오기
+
+
+
+
+        drawerLayout = findViewById(R.id.mem_drawer_layout);
+        drawerView = findViewById(R.id.mem_drawerView);
+        drawerLayout.setDrawerListener(listener);
+
+        RecyclerView recyclerView = findViewById(R.id.mem_drawer_recyclerView);
+        MemorizationDrawerAdapter mMemorizationDrawerAdapter = new MemorizationDrawerAdapter();
+//
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(mMemorizationDrawerAdapter);
+        ArrayList<MemorizationVocaItem> mMemorizationVocaItems = new ArrayList<>();
+
+        for(int i = 0; i < 30; i++){
+            mMemorizationVocaItems.add(new MemorizationVocaItem(mWordItem.get(i+wordIndex).getWord()));
+        }
+
+        mMemorizationDrawerAdapter.setmVocaList(mMemorizationVocaItems);
+        mMemorizationDrawerAdapter.setOnItemClicklistener(new MemorizationVocaItemClickListener() {
+            @Override
+            public void onItemClick(MemorizationDrawerAdapter.ViewHolder holder, View view, int position) {
+                mem_word.setText(mWordItem.get(wordIndex+position).getWord());
+                mem_meaning.setText(mWordItem.get(wordIndex+position).getMeaning());
+                index = position;
+                progressNum = position + 1;
+                mem_progressText.setText(String.valueOf(progressNum));
+            }
+        });
+
+
+        mem_list = findViewById(R.id.mem_list);
+        mem_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(drawerView);
+            }
+        });
+
+
 
 
 
@@ -218,4 +267,21 @@ public class MemorizationActivity extends AppCompatActivity {
         startActivity(new Intent(this, MemorizationList.class));
 
     }
+    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
+        @Override
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+        }
+
+        @Override
+        public void onDrawerOpened(@NonNull View drawerView) {
+        }
+
+        @Override
+        public void onDrawerClosed(@NonNull View drawerView) {
+        }
+
+        @Override
+        public void onDrawerStateChanged(int newState) {
+        }
+    };
 }
