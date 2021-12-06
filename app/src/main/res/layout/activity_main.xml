@@ -70,7 +70,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="암기하기"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:fontFamily="@font/neodgm"
             android:background="@drawable/buttonbackground_retro"
             android:alpha="0.8"
@@ -103,7 +103,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/neodgm"
                 android:layout_marginLeft="10dp"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:background="@drawable/buttonbackground_retro"
                 android:alpha="0.8"/>
         </LinearLayout>
