@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Test.TestResult"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@drawable/main_background">
 
     <TextView
         android:id="@+id/test_tv_Stage"
@@ -60,18 +61,22 @@
             android:textSize="40sp"
             android:fontFamily="@font/neodgm"
             android:gravity="center"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+            android:background="@drawable/buttonbackground_retro"
+            android:alpha="0.8"/>
 
         <Button
             android:id="@+id/test_bt_ok"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="OK"
+            android:text="DONE"
             android:textColor="@color/black"
             android:textSize="40sp"
             android:fontFamily="@font/neodgm"
             android:gravity="center"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+            android:background="@drawable/buttonbackground_retro"
+            android:alpha="0.8"/>
     </LinearLayout>
 </LinearLayout>

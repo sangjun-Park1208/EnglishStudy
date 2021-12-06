@@ -49,6 +49,7 @@ public class TestActivity extends AppCompatActivity {
     private ArrayList<WordItem> mWordItem;
     private ArrayList<WordItem> testWordItems;
     private ArrayList<WordItem> testMeaning;
+    private ArrayList<WordItem> WrongWordItems;
 
     //Timer 관련 변수
     private TimerTask timerTask;
@@ -72,7 +73,8 @@ public class TestActivity extends AppCompatActivity {
     private TextView tv_mean4;
 
     private TextView tv_progress;
-    private ImageView imageView;
+    private ImageView imageView_Correct;
+    private ImageView imageView_Wrong;
     int index = 0;
     int select_Stage;
 
@@ -83,8 +85,11 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        imageView = new ImageView(getApplicationContext());
-        imageView.setImageResource(R.drawable.ic_launcher_foreground);
+        imageView_Correct = new ImageView(getApplicationContext());
+        imageView_Correct.setImageResource(R.drawable.image_correct_retro);
+
+        imageView_Wrong = new ImageView(getApplicationContext());
+        imageView_Wrong.setImageResource(R.drawable.image_wrong_retro);
 
         //선택한 Stage 번호를 Intent 로 받음
         //0: Stage 1, 1: Stage 2 ... 29: Stage 30
@@ -104,6 +109,12 @@ public class TestActivity extends AppCompatActivity {
         testWordItems = new ArrayList<WordItem>();
         for (int i = 0; i < 30; i++) {
             testWordItems.add(i, mWordItem.get(i + select_Stage * 30));
+        }
+
+        int wrong_Stage = select_Stage/3 +1;
+        WrongWordItems = new ArrayList<WordItem>();
+        for (int i = 0; i < 30; i++) {
+            WrongWordItems.add(i, mWordItem.get(i + wrong_Stage * 30));
         }
 
         //Button 참조
@@ -316,28 +327,29 @@ public class TestActivity extends AppCompatActivity {
             WordItem wrongWordItem;
 
             //해당 Stage 에서 중복되지 않는 오답 3개 설정
-            int count;
-            for (count = 1; count < 4; count++) {
-                wrongWordItem = testWordItems.get(random.nextInt(testWordItems.size()));
-
-                for (int i = 0; i < testMeaning.size(); i++) {
-                    if (testMeaning.get(i).getWordNum() == wrongWordItem.getWordNum()) {
-                        count--;
-                    } else {
+            int count=1;
+            while (count<4) {
+                wrongWordItem = WrongWordItems.get(random.nextInt(WrongWordItems.size()));
+                for(int i=0; i<testMeaning.size(); i++){
+                    Log.d("test",Integer.toString(testMeaning.size()));
+                    if(!wrongWordItem.getMeaning().equals(testMeaning.get(i).getMeaning())){
                         testMeaning.add(wrongWordItem);
+                        Log.d("wrong",wrongWordItem.getMeaning());
+                        count++;
+                        break;
                     }
-                    break;
                 }
+
             }
 
             //0:정답, 1,2,3: 오답 섞기
             Collections.shuffle(testMeaning);
 
             //뜻 표시
-            tv_mean1.setText(testMeaning.get(0).getMeaning());
-            tv_mean2.setText(testMeaning.get(1).getMeaning());
-            tv_mean3.setText(testMeaning.get(2).getMeaning());
-            tv_mean4.setText(testMeaning.get(3).getMeaning());
+            tv_mean1.setText("1. "+testMeaning.get(0).getMeaning());
+            tv_mean2.setText("2. "+testMeaning.get(1).getMeaning());
+            tv_mean3.setText("3. "+testMeaning.get(2).getMeaning());
+            tv_mean4.setText("4. "+testMeaning.get(3).getMeaning());
         }
 
 
@@ -347,8 +359,8 @@ public class TestActivity extends AppCompatActivity {
     //정답을 골랐을 때
     public void selectCorrectAnswer() {
         Toast toast = Toast.makeText(getApplicationContext(), "정답입니다", Toast.LENGTH_SHORT);
-        //toast.setView(imageView);
-        //toast.setGravity(Gravity.CENTER, 50, 50);
+        toast.setView(imageView_Correct);
+        toast.setGravity(Gravity.CENTER, 50, 50);
         toast.show();
 
         //정답: Mark  0으로/ testMeaning 초기화 / 다음 단어로
@@ -360,8 +372,8 @@ public class TestActivity extends AppCompatActivity {
     //오답을 골랐을 때
     public void selectWrongAnswer() {
         Toast toast = Toast.makeText(getApplicationContext(), "틀렸습니다", Toast.LENGTH_SHORT);
-        //toast.setView(imageView);
-        //toast.setGravity(Gravity.CENTER, 50, 50);
+        toast.setView(imageView_Wrong);
+        toast.setGravity(Gravity.CENTER, 50, 50);
         toast.show();
 
         //1,2,3,4번 중 정답을 찾아 파란색으로 표시
@@ -395,10 +407,10 @@ public class TestActivity extends AppCompatActivity {
 
     //시간초과 되었을 때
     public void selectNothing_Timeout() {
-        Toast toast = Toast.makeText(getApplicationContext(), "시간이 초과되었습니다.", Toast.LENGTH_SHORT);
-        //toast.setView(imageView);
-        toast.setGravity(Gravity.CENTER, 50, 50);
-        toast.show();
+//        Toast toast = Toast.makeText(getApplicationContext(), "시간이 초과되었습니다.", Toast.LENGTH_SHORT);
+//        //toast.setView(imageView);
+//        toast.setGravity(Gravity.CENTER, 50, 50);
+//        toast.show();
 
         //1,2,3,4번 중 정답을 찾아 파란색으로 표시
         for (int i = 0; i < 4; i++) {
