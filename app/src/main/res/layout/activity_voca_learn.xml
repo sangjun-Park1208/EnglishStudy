@@ -55,7 +55,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/neodgm"
             android:textColor="@color/black"
-            android:background=""
             android:text="1/30"
             android:layout_marginLeft="70sp"
             android:textSize="34sp" />

@@ -1,6 +1,7 @@
 package com.example.englishstudy.Review;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -45,7 +46,8 @@ public class ReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_learn);
 
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         mDBHelper = new DBHelper(this);
         mWordItem = new ArrayList<>();

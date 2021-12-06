@@ -1,5 +1,6 @@
 package com.example.englishstudy.Review;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +31,9 @@ public class ReviewList extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_review_day);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         mDBHelper=new DBHelper(this);
         mWorditem=new ArrayList<>();
