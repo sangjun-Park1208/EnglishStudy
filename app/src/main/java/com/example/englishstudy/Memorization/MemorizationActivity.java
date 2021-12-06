@@ -40,10 +40,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class MemorizationActivity extends AppCompatActivity {
 
-    private TextView mem_StageNum1; // StageList 화면에서의 Stage number
     private TextView mem_StageNum2; // 암기 화면에서의 Stage number
     private TextView mem_progressText; // 진척도
-    private ProgressBar mem_progressBar1; // StageList 화면에서의 진행바
     private ProgressBar mem_progressBar2; // 암기 화면에서의 진행바
     private TextView mem_word; // 영단어
     private TextView mem_meaning; // 한글 뜻
@@ -52,22 +50,13 @@ public class MemorizationActivity extends AppCompatActivity {
     private Button mem_list;
 
     private DBHelper mDBHelper; // DB
-    private Context mContext;
     private ArrayList<WordItem> mWordItem; // DB 호출 후 저장할 공간
-    private ArrayList<WordItem> mSelectedItem;
     private Intent intent;
-
-    private MemorizationAdapter mAdapter;
-    private ArrayList<Stage_Item> mStageList;
-
 
     private int selected_StageNum, wordIndex;
     private int progressNum;
+    protected int index = 0;
 
-    protected int index=0;
-
-    // drawer
-    private ArrayList<MemorizationVocaItem> mMemorizationVocaItems;
     private DrawerLayout drawerLayout;
     private View drawerView;
 
@@ -81,11 +70,8 @@ public class MemorizationActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-
-        mem_StageNum1 = findViewById(R.id.mem_stageNum1);
         mem_StageNum2 = findViewById(R.id.mem_stageNum2);
         mem_progressText = findViewById(R.id.mem_progressText);
-        mem_progressBar1 = findViewById(R.id.mem_progressBar1);
         mem_progressBar2 = findViewById(R.id.mem_progressBar2);
         mem_word = findViewById(R.id.mem_word);
         mem_meaning = findViewById(R.id.mem_meaning);
@@ -146,18 +132,12 @@ public class MemorizationActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
         // 첫 화면
         mem_progressText.setText(1+""); // 단어 progress 띄워주기
 
         mem_word.setText(mWordItem.get(wordIndex+1).getWord());
         mem_meaning.setText(mWordItem.get(wordIndex+1).getMeaning());
-        progressNum++;        // 여기까지 첫 화면
+        progressNum++;
 
 
         // O 버튼 클릭 시
@@ -170,9 +150,7 @@ public class MemorizationActivity extends AppCompatActivity {
                     mem_meaning.setText(mWordItem.get(wordIndex).getMeaning());
                     mem_progressText.setText(""+progressNum++);
                     mWordItem.get(wordIndex).setIsMark(0); // O 버튼 누르면 isMarked 를 0으로
-//                    Log.d("O버튼클릭시 : ",  String.valueOf(mWordItem.get(wordIndex).getIsMark()));
                     mDBHelper.UpdateWord(mWordItem.get(wordIndex).getDay(), mWordItem.get(wordIndex).getWordNum(), 0, mWordItem.get(wordIndex).getWord(), mWordItem.get(wordIndex).getMeaning(), mWordItem.get(wordIndex).getId());
-
                     wordIndex++;
                     index++;
                     mem_progressBar2.setProgress(index);
