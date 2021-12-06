@@ -1,7 +1,11 @@
 package com.example.englishstudy.Review;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,78 +25,144 @@ import java.util.ArrayList;
 
 public class ReviewActivity extends AppCompatActivity {
     private Intent intent;
-    private int stage,index;
+    private int stage, index;
+    private int[] inoutbox=new int[30];
+    private int inoutboxsum,listindex;
+
+    private ArrayList<ReviewVocaItem> mReviewVocaItems;
+    private DrawerLayout drawerLayout;
+    private View drawerView;
+    private RecyclerView recyclerView;
 
     private TextView txt_stage, txt_progress, txt_word, txt_meaning;
     private ArrayList<WordItem> mWordItem;
     private DBHelper mDBHelper;
-    private Button btn_1, btn_2;
-    private int total = 0, progress = 1,check,i,before;
+    private Button btn_1, btn_2,btn_voca;
+    private int total = 0, progress = 1, check, i, before;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_learn);
 
+
+
         mDBHelper = new DBHelper(this);
         mWordItem = new ArrayList<>();
+        mReviewVocaItems=new ArrayList<>();
 
         mWordItem = mDBHelper.getWordList();//DB 아이템들 끌고오기
         intent = getIntent();
         stage = intent.getIntExtra("Stage", 0);
-        index = stage*30;
+        index = stage * 30;
 
-        txt_stage=(TextView) findViewById(R.id.memorization_text);
-        txt_stage.setText("Stage"+Integer.toString(stage+1));
-        txt_progress=(TextView) findViewById(R.id.vocalearn_progress);
-        txt_word=(TextView) findViewById(R.id.word);
-        txt_meaning=(TextView) findViewById(R.id.meaning);
+        txt_stage = (TextView) findViewById(R.id.memorization_text);
+        txt_stage.setText("Stage" + Integer.toString(stage + 1));
+        txt_progress = (TextView) findViewById(R.id.vocalearn_progress);
+        txt_word = (TextView) findViewById(R.id.word);
+        txt_meaning = (TextView) findViewById(R.id.meaning);
+
+        //navigateion drawer
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerView = (View) findViewById(R.id.drawerView);
+        drawerLayout.setDrawerListener(listener);
+
+        RecyclerView recyclerView = findViewById(R.id.review_drawer_recyclerView);
+        ReviewDrawerAdapter mReviewDrawerAdapter=new ReviewDrawerAdapter();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mReviewDrawerAdapter);
+
+        ArrayList<ReviewVocaItem> mReviewVocaItems=new ArrayList<>();
+
+        for(i=0;i<30;i++){
+            if(mWordItem.get(i+index).getIsMark()==1) {
+                mReviewVocaItems.add(new ReviewVocaItem(mWordItem.get(i+index).getWord()));
+                inoutbox[i%30]=1;
+            }
+        }
+
+
+        mReviewDrawerAdapter.setmVocaList(mReviewVocaItems);
+        mReviewDrawerAdapter.setOnItemClicklistener(new ReviewVocaItemClickListener() {
+            @Override
+            public void onItemClick(ReviewDrawerAdapter.ViewHolder holder, View view, int position) {
+                inoutboxsum=0;
+                listindex=0;
+                for(i=0;;i++){
+                    if(inoutboxsum==position+1)
+                        break;
+                    if(inoutbox[i]==1) {
+                        inoutboxsum++;
+                        listindex=i;
+                    }
+                }
+                txt_word.setText(mWordItem.get(listindex + index).getWord());
+                txt_meaning.setText(mWordItem.get(listindex + index).getMeaning());
+                progress=inoutboxsum;
+                txt_progress.setText(progress + "/" + total);
+                progress++;
+                check = listindex + index;
+            }
+        });
 
         //단어 화면에 띄우기. id는 1부터, index는 0부터
-        for(i=0;i<30;i++) {
-            if(mWordItem.get(index+i).getIsMark()==1)
+        for (i = 0; i < 30; i++) {
+            if (mWordItem.get(index + i).getIsMark() == 1)
                 total++;
         }
 //        if(total==0)
 //            startActivity(new Intent(this, ReviewList.class));
 
         //처음 들어오자마자 화면
-        txt_progress.setText(1+"/"+total);
-        for(i=0;i<30;i++) {
-            if(mWordItem.get(index+i).getIsMark()==1) {//처음 들어오자마자 화면 띄우기
-                txt_word.setText(mWordItem.get(index+i).getWord());
-                txt_meaning.setText(mWordItem.get(index+i).getMeaning());
-                txt_progress.setText(progress+"/"+total);
+        txt_progress.setText(1 + "/" + total);
+        for (i = 0; i < 30; i++) {
+            if (mWordItem.get(index + i).getIsMark() == 1) {//처음 들어오자마자 화면 띄우기
+                txt_word.setText(mWordItem.get(index + i).getWord());
+                txt_meaning.setText(mWordItem.get(index + i).getMeaning());
+                txt_progress.setText(progress + "/" + total);
                 progress++;
-                check=i+index;
+                check = i + index;
                 break;
             }
         }
 
-        btn_1=(Button) findViewById(R.id.known);
+
+
+        btn_voca=(Button) findViewById(R.id.vocalearn_list);
+        btn_voca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.openDrawer(drawerView);
+            }
+        });
+
+
+
+
+
+        btn_1 = (Button) findViewById(R.id.known);
         btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!end(index)) {//ismarked 0으로 바꿔주기
+                if (!end(index)) {//ismarked 0으로 바꿔주기
                     WordItem cur = mWordItem.get(check);
                     mDBHelper.UpdateWord(cur.getDay(), cur.getWordNum(), 0, cur.getWord(), cur.getMeaning(), cur.getId());
                 }
 
-                for(i=check+1;i<index+30;i++){
-                    if(mWordItem.get(i).getIsMark()==1) {
+                for (i = check + 1; i < index + 30; i++) {
+                    if (mWordItem.get(i).getIsMark() == 1) {
                         check = i;
                         break;
                     }
                 }
-                if(progress<=total) {
+                if (progress <= total) {
                     txt_word.setText(mWordItem.get(check).getWord());
                     txt_meaning.setText(mWordItem.get(check).getMeaning());
                     txt_progress.setText(progress + "/" + total);
                     progress++;
                     check = i;
-                }
-
-                else if(progress>total&&end(index)){
+                } else if (progress > total && end(index)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     String[] strChoiceItems = {"확인"};
                     builder.setTitle("완료하였습니다.");
@@ -107,8 +177,7 @@ public class ReviewActivity extends AppCompatActivity {
                     });
                     builder.create();
                     builder.show();
-                }
-                else{
+                } else {
                     //AlertDialog 를 이용한 팝업 창
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     String[] strChoiceItems = {"O", "X"};
@@ -136,24 +205,23 @@ public class ReviewActivity extends AppCompatActivity {
             }
         });
 
-        btn_2=(Button) findViewById(R.id.unknown);
+        btn_2 = (Button) findViewById(R.id.unknown);
         btn_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(i=check+1;i<index+30;i++){
-                    if(mWordItem.get(i).getIsMark()==1) {
+                for (i = check + 1; i < index + 30; i++) {
+                    if (mWordItem.get(i).getIsMark() == 1) {
                         check = i;
                         break;
                     }
                 }
-                if(progress<=total) {
+                if (progress <= total) {
                     txt_word.setText(mWordItem.get(check).getWord());
                     txt_meaning.setText(mWordItem.get(check).getMeaning());
                     txt_progress.setText(progress + "/" + total);
                     progress++;
                     check = i;
-                }
-                else{
+                } else {
                     //AlertDialog 를 이용한 팝업 창
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     String[] strChoiceItems = {"O", "X"};
@@ -182,13 +250,38 @@ public class ReviewActivity extends AppCompatActivity {
         });
     }
 
-    private boolean end(int index){
+    private boolean end(int index) {
         mWordItem = mDBHelper.getWordList();//DB 아이템들 끌고오기
-        for(i=index;i<index+30;i++) {
+        for (i = index; i < index + 30; i++) {
             if (mWordItem.get(i).getIsMark() == 1) {
                 return false;
             }
         }
         return true;
     }
+
+    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
+        @Override
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+        }
+
+        @Override
+        public void onDrawerOpened(@NonNull View drawerView) {
+        }
+
+        @Override
+        public void onDrawerClosed(@NonNull View drawerView) {
+        }
+
+        @Override
+        public void onDrawerStateChanged(int newState) {
+        }
+    };
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        startActivity(new Intent(this, ReviewList.class));
+    }
+
 }

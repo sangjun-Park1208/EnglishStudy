@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishstudy.R;
-import com.example.englishstudy.Test.TestAdapter;
 import com.example.englishstudy.global.Stage_Item;
 
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             });
         }
 
-        public void isSelected(TestAdapter.ViewHolder viewHolder, int position){//이부분 질문
+        public void isSelected(ReviewAdapter.ViewHolder viewHolder, int position){//이부분 질문
             if(selectedPosition == position){
                 viewHolder.itemView.setBackgroundColor(Color.GRAY);
             }
