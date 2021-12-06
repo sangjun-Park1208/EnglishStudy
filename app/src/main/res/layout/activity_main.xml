@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:gravity="center"
     android:orientation="vertical"
-
+    android:background="@drawable/main_background"
     >
 
     <TextView
@@ -30,15 +30,27 @@
         android:gravity="center"
         >
 
-        <TextView
-            android:id="@+id/main_tv_Progress"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="오늘의 달성률"
-            android:textSize="25sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/neodgm"
-            android:layout_margin="10dp"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/main_tv_Progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/neodgm"
+                android:text="오늘의 달성률"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/main_character" />
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -60,6 +72,8 @@
             android:text="암기하기"
             android:textSize="20sp"
             android:fontFamily="@font/neodgm"
+            android:background="@drawable/buttonbackground_retro"
+            android:alpha="0.8"
             />
 
         <LinearLayout
@@ -76,8 +90,10 @@
                 android:layout_weight="1"
                 android:layout_marginRight="10dp"
                 android:text="Test"
-                android:textSize="20sp"
-                android:fontFamily="@font/neodgm"/>
+                android:textSize="30sp"
+                android:fontFamily="@font/neodgm"
+                android:background="@drawable/buttonbackground_retro"
+                android:alpha="0.8"/>
 
             <Button
                 android:id="@+id/review1"
@@ -87,7 +103,9 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/neodgm"
                 android:layout_marginLeft="10dp"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:background="@drawable/buttonbackground_retro"
+                android:alpha="0.8"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -103,32 +121,40 @@
         <Button
             android:id="@+id/memorization2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:text="암기하기"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:fontFamily="@font/neodgm"/>
+            android:fontFamily="@font/neodgm"
+            android:background="@drawable/buttonbackground_retro"
+            android:alpha="0.8"/>
 
         <Button
             android:id="@+id/test2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:text="Test"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:fontFamily="@font/neodgm"/>
+            android:fontFamily="@font/neodgm"
+            android:background="@drawable/buttonbackground_retro"
+            android:alpha="0.8"
+            />
 
         <Button
             android:id="@+id/review2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:text="복습하기"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:fontFamily="@font/neodgm"/>
+            android:fontFamily="@font/neodgm"
+            android:background="@drawable/buttonbackground_retro"
+            android:alpha="0.8"
+            />
     </LinearLayout>
 
 
