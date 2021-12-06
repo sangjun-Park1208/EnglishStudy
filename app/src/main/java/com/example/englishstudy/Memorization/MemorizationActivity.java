@@ -72,11 +72,6 @@ public class MemorizationActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,32 +104,30 @@ public class MemorizationActivity extends AppCompatActivity {
 
 
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.mem_drawer_layout);
-        drawerView = (View) findViewById(R.id.mem_drawerView);
+        drawerLayout = findViewById(R.id.mem_drawer_layout);
+        drawerView = findViewById(R.id.mem_drawerView);
         drawerLayout.setDrawerListener(listener);
 
         RecyclerView recyclerView = findViewById(R.id.mem_drawer_recyclerView);
-        MemorizationDrawerAdapter mMemorizationDrawerAdapter = new MemorizationDrawerAdapter(mMemorizationVocaItems, (MemorizationVocaItemClickListener) listener);
+        MemorizationDrawerAdapter mMemorizationDrawerAdapter = new MemorizationDrawerAdapter();
 //
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(mMemorizationDrawerAdapter);
         ArrayList<MemorizationVocaItem> mMemorizationVocaItems = new ArrayList<>();
 
         for(int i = 0; i < 30; i++){
-            if(mWordItem.get(i+index).getIsMark()==1) {
-                mMemorizationVocaItems.add(new MemorizationVocaItem(mWordItem.get(i+index).getWord()));
-            }
+            mMemorizationVocaItems.add(new MemorizationVocaItem(mWordItem.get(i+wordIndex).getWord()));
         }
 
         mMemorizationDrawerAdapter.setmVocaList(mMemorizationVocaItems);
         mMemorizationDrawerAdapter.setOnItemClicklistener(new MemorizationVocaItemClickListener() {
             @Override
             public void onItemClick(MemorizationDrawerAdapter.ViewHolder holder, View view, int position) {
-                mem_word.setText(mWordItem.get(position+index).getWord());
-                mem_meaning.setText(mWordItem.get(position+index).getMeaning());
+                mem_word.setText(mWordItem.get(wordIndex+position).getWord());
+                mem_meaning.setText(mWordItem.get(wordIndex+position).getMeaning());
+                index = position;
                 progressNum = position + 1;
-                mem_progressText.setText(progressNum);
-                progressNum++;
+                mem_progressText.setText(String.valueOf(progressNum));
             }
         });
 

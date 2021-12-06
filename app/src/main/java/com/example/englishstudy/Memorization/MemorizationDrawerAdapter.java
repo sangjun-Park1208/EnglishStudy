@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.englishstudy.R;
 
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -20,21 +19,20 @@ public class MemorizationDrawerAdapter extends RecyclerView.Adapter<Memorization
     private ArrayList<MemorizationVocaItem> mVocaList;
     MemorizationVocaItemClickListener listener;
 
-    public MemorizationDrawerAdapter(ArrayList<MemorizationVocaItem> mVocaList, MemorizationVocaItemClickListener listener) {
-        this.mVocaList = mVocaList;
-        this.listener = listener;
-    }
+//    public MemorizationDrawerAdapter(ArrayList<MemorizationVocaItem> mVocaList, MemorizationVocaItemClickListener listener) {
+//        this.mVocaList = mVocaList;
+//        this.listener = listener;
+//    }
 
     @NonNull
-    @NotNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.memorization_drawer_item, parent, false);
         return new ViewHolder(view, this);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.onBind(mVocaList.get(position));
     }
 
@@ -63,7 +61,7 @@ public class MemorizationDrawerAdapter extends RecyclerView.Adapter<Memorization
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView voca;
-        public ViewHolder(@NonNull @NotNull View itemView, final MemorizationVocaItemClickListener listener) {
+        public ViewHolder(@NonNull View itemView, final MemorizationVocaItemClickListener listener) {
             super(itemView);
             voca = itemView.findViewById(R.id.mem_drawer_item);
 
