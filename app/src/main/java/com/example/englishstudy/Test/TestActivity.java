@@ -178,7 +178,7 @@ public class TestActivity extends AppCompatActivity {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 1000);
+                    }, 2500);
 
 
                 }
@@ -199,7 +199,7 @@ public class TestActivity extends AppCompatActivity {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 1000);
+                    }, 2500);
 
                 }
                 //3번 클릭
@@ -219,7 +219,7 @@ public class TestActivity extends AppCompatActivity {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 1000);
+                    }, 2500);
                 }
                 //4번 클릭
                 else if (v == bt_select4 || v == cv_select4) {
@@ -238,7 +238,7 @@ public class TestActivity extends AppCompatActivity {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startTest();
                         }
-                    }, 1000);
+                    }, 2500);
                 }
             }
         };
@@ -270,7 +270,7 @@ public class TestActivity extends AppCompatActivity {
 
         timerTask = new TimerTask() {
             //카운트 시작 시간 10초
-            int count = 10;
+            int count = 11;
 
             @Override
             public void run() {
@@ -364,9 +364,9 @@ public class TestActivity extends AppCompatActivity {
 
     //정답을 골랐을 때
     public void selectCorrectAnswer() {
-        Toast toast = Toast.makeText(getApplicationContext(), "정답입니다", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
         toast.setView(imageView_Correct);
-        toast.setGravity(Gravity.CENTER|Gravity.TOP, 50, 50);
+        toast.setGravity(Gravity.CENTER,50, 50);
         toast.show();
 
         //정답: Mark  0으로/ testMeaning 초기화 / 다음 단어로
@@ -377,9 +377,9 @@ public class TestActivity extends AppCompatActivity {
 
     //오답을 골랐을 때
     public void selectWrongAnswer() {
-        Toast toast = Toast.makeText(getApplicationContext(), "틀렸습니다", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
         toast.setView(imageView_Wrong);
-        toast.setGravity(Gravity.CENTER|Gravity.TOP, 50, 50);
+        toast.setGravity(Gravity.CENTER, 50, 50);
         toast.show();
 
         //1,2,3,4번 중 정답을 찾아 파란색으로 표시
