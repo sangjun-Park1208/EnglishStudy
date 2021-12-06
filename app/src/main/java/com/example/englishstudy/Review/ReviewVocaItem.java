@@ -1,6 +1,6 @@
 package com.example.englishstudy.Review;
 
-public class ReviewVocaItem {
+public class ReviewVocaItem {//네비게이션뷰 아이템
     private String voca;
 
     public ReviewVocaItem(String voca) {
@@ -9,9 +9,5 @@ public class ReviewVocaItem {
 
     public String getVoca() {
         return voca;
-    }
-
-    public void setVoca(String voca) {
-        this.voca = voca;
     }
 }

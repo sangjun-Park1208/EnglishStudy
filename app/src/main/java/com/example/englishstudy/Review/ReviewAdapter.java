@@ -18,14 +18,11 @@ import com.example.englishstudy.global.Stage_Item;
 import java.util.ArrayList;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> implements ReviewOnStageItemClickListener {
-
-    private int oldPosition=-1;
-    private int selectedPosition=-1;
-
+    //아이템 목록
     private ArrayList<Stage_Item> mDayList;
     ReviewOnStageItemClickListener listener;
 
-
+    //어댑터 뷰에 전달할 내용들
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,7 +30,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         return new ViewHolder(view,this);
     }
 
-    @Override
+    @Override//데이터를 view와 연결
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.onBind(mDayList.get(position));
     }
@@ -79,29 +76,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                     }
                 }
             });
-        }
-
-        public void isSelected(ReviewAdapter.ViewHolder viewHolder, int position){//이부분 질문
-            if(selectedPosition == position){
-                viewHolder.itemView.setBackgroundColor(Color.GRAY);
-            }
-            else{
-                viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
-            }
-
-            viewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    oldPosition = selectedPosition;
-                    selectedPosition = position;
-
-                    notifyItemChanged(oldPosition);
-                    notifyItemChanged(selectedPosition);
-                    return false;
-                }
-
-            });
-
         }
 
         public void onBind(Stage_Item stageItem) {

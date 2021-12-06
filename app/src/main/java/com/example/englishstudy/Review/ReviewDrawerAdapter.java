@@ -9,15 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishstudy.R;
-import com.example.englishstudy.VocaList;
 
 import java.util.ArrayList;
 
 public class ReviewDrawerAdapter extends RecyclerView.Adapter<ReviewDrawerAdapter.ViewHolder> implements ReviewVocaItemClickListener{
-
+    //아이템 목록
     private ArrayList<ReviewVocaItem> mVocaList;
     ReviewVocaItemClickListener listener;
 
+    //어댑터 뷰에 전달할 내용들
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -25,7 +25,7 @@ public class ReviewDrawerAdapter extends RecyclerView.Adapter<ReviewDrawerAdapte
         return new ViewHolder(view,this);
     }
 
-    @Override
+    @Override//데이터를 view와 연결
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.onBind(mVocaList.get(position));
     }
@@ -58,7 +58,7 @@ public class ReviewDrawerAdapter extends RecyclerView.Adapter<ReviewDrawerAdapte
 
             voca=(TextView) itemView.findViewById(R.id.review_drawer_item);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {//아이템에 클릭이벤트 넣어주기
                 @Override
                 public void onClick(View v) {
                     int position=getAdapterPosition();
