@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/main_background"
     tools:context=".Memorization.MemorizationList">
 
     <TextView
@@ -22,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="20dp"
+        android:alpha="0.8"
         android:layout_weight="1" />
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.englishstudy.Memorization;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -76,6 +77,10 @@ public class MemorizationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memorization);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
 
         mem_StageNum1 = findViewById(R.id.mem_stageNum1);
         mem_StageNum2 = findViewById(R.id.mem_stageNum2);
