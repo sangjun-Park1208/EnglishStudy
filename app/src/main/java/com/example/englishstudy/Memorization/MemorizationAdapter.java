@@ -65,8 +65,7 @@ public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapte
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         holder.mem_StageNum.setText(mStageList.get(position).getStage());
         holder.mem_State.setText(mStageList.get(position).getRunning());
-        holder.mem_progressBar1.setProgress(25); // 이거 왜 널포인터 익셉션,,?
-//        holder.mem_progressBar2.setProgress(mStageList.get(position).getCorrect());
+        holder.mem_progressBar1.setProgress(mStageList.get(position).getCorrect()); // 이거 왜 널포인터 익셉션,,?
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -81,7 +80,7 @@ public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapte
             mem_StageNum = itemView.findViewById(R.id.mem_stageNum1);
             mem_State = itemView.findViewById(R.id.mem_State);
             mem_progressBar1 = itemView.findViewById(R.id.mem_progressBar1);
-            mem_progressBar2 = itemView.findViewById(R.id.mem_progressBar2);
+//            mem_progressBar2 = itemView.findViewById(R.id.mem_progressBar2);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

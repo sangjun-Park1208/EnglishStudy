@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.example.englishstudy.R;
 import com.example.englishstudy.Review.ReviewList;
 import com.example.englishstudy.global.DBHelper;
+import com.example.englishstudy.global.Stage_Item;
 import com.example.englishstudy.global.WordItem;
 
 import org.w3c.dom.Text;
@@ -53,9 +54,14 @@ public class MemorizationActivity extends AppCompatActivity {
     private ArrayList<WordItem> mSelectedItem;
     private Intent intent;
 
+    private MemorizationAdapter mAdapter;
+    private ArrayList<Stage_Item> mStageList;
+
 
     private int selected_StageNum, wordIndex;
     private int progressNum;
+
+    protected int index=0;
 
 
     @Override
@@ -89,6 +95,9 @@ public class MemorizationActivity extends AppCompatActivity {
 
 
 
+
+
+
         // 첫 화면
         mem_progressText.setText(1+""); // 단어 progress 띄워주기
 
@@ -96,16 +105,23 @@ public class MemorizationActivity extends AppCompatActivity {
         mem_meaning.setText(mWordItem.get(wordIndex+1).getMeaning());
         progressNum++;        // 여기까지 첫 화면
 
+
         // O 버튼 클릭 시
         mem_known.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(progressNum <= 30){
+                    mWordItem = mDBHelper.getWordList();
                     mem_word.setText(mWordItem.get(wordIndex).getWord());
                     mem_meaning.setText(mWordItem.get(wordIndex).getMeaning());
                     mem_progressText.setText(""+progressNum++);
                     mWordItem.get(wordIndex).setIsMark(0); // O 버튼 누르면 isMarked 를 0으로
+//                    Log.d("O버튼클릭시 : ",  String.valueOf(mWordItem.get(wordIndex).getIsMark()));
+                    mDBHelper.UpdateWord(mWordItem.get(wordIndex).getDay(), mWordItem.get(wordIndex).getWordNum(), 0, mWordItem.get(wordIndex).getWord(), mWordItem.get(wordIndex).getMeaning(), mWordItem.get(wordIndex).getId());
+
                     wordIndex++;
+                    index++;
+                    mem_progressBar2.setProgress(index);
                 }
                 else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
@@ -131,13 +147,34 @@ public class MemorizationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(progressNum <= 30){
-                    if(progressNum <= 30){
-                        mem_word.setText(mWordItem.get(wordIndex).getWord());
-                        mem_meaning.setText(mWordItem.get(wordIndex).getMeaning());
-                        mem_progressText.setText(""+progressNum++);
-                        mWordItem.get(wordIndex).setIsMark(1); // X 버튼 누르면 isMarked 를 1로
-                        wordIndex++;
-                    }
+                    mWordItem = mDBHelper.getWordList();
+                    mem_word.setText(mWordItem.get(index).getWord());
+                    mem_meaning.setText(mWordItem.get(index).getMeaning());
+                    mem_progressText.setText(""+progressNum++);
+                    mWordItem.get(index).setIsMark(1); // X 버튼 누르면 isMarked 를 1로
+//                    Log.d("X버튼클릭시 : ",  String.valueOf(mWordItem.get(wordIndex).getIsMark()));
+                    mDBHelper.UpdateWord(mWordItem.get(wordIndex).getDay(), mWordItem.get(wordIndex).getWordNum(), 1, mWordItem.get(wordIndex).getWord(), mWordItem.get(wordIndex).getMeaning(), mWordItem.get(wordIndex).getId());
+                    wordIndex++;
+                    index++;
+                    mem_progressBar2.setProgress(index);
+
+                }
+                else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    String[] strChoiceItems = {"확인"};
+                    builder.setTitle("완료하였습니다.");
+                    builder.setItems(strChoiceItems, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int dialogposition) {
+                            //O가 선택되었을 때
+                            if (dialogposition == 0) {
+                                startActivity(new Intent(v.getContext(), MemorizationList.class));
+
+                            }
+                        }
+                    });
+                    builder.create();
+                    builder.show();
                 }
             }
         });
@@ -175,5 +212,10 @@ public class MemorizationActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MemorizationList.class));
 
+    }
 }

@@ -28,7 +28,8 @@
         <activity
             android:name=".Memorization.MemorizationActivity"
             android:exported="false"
-            android:label="Memorization" />
+            android:label="Memorization"
+            android:launchMode="singleTask"/>
         <activity android:name=".Memorization.MemorizationList"
             android:exported="false"
             android:label="MemorizationActivity"/>

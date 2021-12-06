@@ -45,62 +45,59 @@ public class MemorizationList extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(memorizationAdapter);
 
-        int nothing=0;
-        for(int i = 1; i <= 30; i++){//스테이지랑 complete 여부 체크
-            progress=0;
-            for(int j = (i - 1) * 30; j < (i - 1) * 30 +30; j++){//각 스테이지별로 마크 체크
-                if(mWordItem.get(j).getIsMark() == 1) {
-                    check = 0;//완료, 다시시도 체크
-                    progress++;//개수 체크해서 progressbar에 반영
+        int nothing = 0;
+        for(int i = 1; i <= 30; i++){
+            progress = 0;
+
+            for(int j = (i - 1) * 30; j < (i - 1) * 30 +30; j++){
+                if(mWordItem.get(j).getIsMark() == 0) {
+//                    check = 0;
+                    progress++;
+
+
                 }
             }
-            if(check==1)//
-                mStageList.add(new Stage_Item(""+i,"Complete",progress,nothing));//Stage 아이템 추가
-            else//
-                mStageList.add(new Stage_Item(""+i,"Try",progress,nothing));
-            check=1;
+            if(progress == 30) {
+                mWordItem = mDBHelper.getWordList();
+                mStageList.add(new Stage_Item("" + i, "Complete", progress, nothing));//Stage 아이템 추가
+            }
+            else {
+                mWordItem = mDBHelper.getWordList();
+                mStageList.add(new Stage_Item("" + i, "Try", progress, nothing));
+//            check = 1;
+            }
         }
         memorizationAdapter.setmStageList(mStageList);
 
         memorizationAdapter.setMemOnItemClickListener(new MemorizationOnStageItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(MemorizationAdapter.ViewHolder holder, View v, int curPos) {
-                if (!memorizationCheck(curPos)) {//반복할 단어가 없으면
+                if (!memorizationCheck(curPos)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     String[] strChoiceItems = {"확인"};
                     builder.setTitle("이미 완료하였습니다.");
                     builder.setItems(strChoiceItems, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int dialogposition) {
-                            //O가 선택되었을 때
-                            if (dialogposition == 0) {
-                                //현상유지
-                            }
+                            if (dialogposition == 0) {}
                         }
                     });
                     builder.create();
                     builder.show();
                 }
                 else {
-                    //AlertDialog 를 이용한 팝업 창
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     String[] strChoiceItems = {"O", "X"};
                     builder.setTitle("암기를 시작하시겠습니까?");
                     builder.setItems(strChoiceItems, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int dialogposition) {
-                            //O가 선택되었을 때
                             if (dialogposition == 0) {
-                                //ReviewActivity 로 이동
-                                //이때 현재 선택된 Stage 값을 Intent 로 전달
                                 Intent intent = new Intent(v.getContext(), MemorizationActivity.class);
                                 intent.putExtra("Stage", curPos);
                                 startActivity(intent);
                             }
-                            //X가 선택되었을 때
-                            else if (dialogposition == 1) {
-                                //현상 유지
-                            }
+                            else if (dialogposition == 1) {}
                         }
                     });
                     builder.create();
@@ -110,8 +107,18 @@ public class MemorizationList extends AppCompatActivity {
         });
 
 
+
+
     }
-    private boolean memorizationCheck(int position){//반복할 단어가 있으면 true, 없으면 false
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+    private boolean memorizationCheck(int position){
+//        mWordItem = mDBHelper.getWordList();
         for(int i=position*30;i<position*30+30;i++) {
             if(mWordItem.get(i).getIsMark()==1)
                 return true;
@@ -119,3 +126,4 @@ public class MemorizationList extends AppCompatActivity {
         return false;
     }
 }
+
