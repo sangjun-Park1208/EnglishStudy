@@ -450,41 +450,41 @@ public class TestActivity extends AppCompatActivity {
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 startTest();
             }
-        }, 3000);
+        }, 2500);
 
     }
 
-    public class Delay {
-        private final int MESSAGE_WHAT = 1;
-
-        Handler handler = new Handler(new Handler.Callback() {
-
-            @Override
-            public boolean handleMessage(Message msg) {
-                getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                if (msg.what == MESSAGE_WHAT) {
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            startTest();
-                        }
-                    };
-                }
-                return false;
-            }
-        });
-
-        private void sendDelayMessage() {
-            Message msg = handler.obtainMessage(MESSAGE_WHAT);
-            handler.sendMessageDelayed(msg, 3000);
-        }
-
-        private void removeMessage() {
-            handler.removeMessages(MESSAGE_WHAT);
-        }
-
-    }
+//    public class Delay {
+//        private final int MESSAGE_WHAT = 1;
+//
+//        Handler handler = new Handler(new Handler.Callback() {
+//
+//            @Override
+//            public boolean handleMessage(Message msg) {
+//                getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                if (msg.what == MESSAGE_WHAT) {
+//                    new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                            startTest();
+//                        }
+//                    };
+//                }
+//                return false;
+//            }
+//        });
+//
+//        private void sendDelayMessage() {
+//            Message msg = handler.obtainMessage(MESSAGE_WHAT);
+//            handler.sendMessageDelayed(msg, 3000);
+//        }
+//
+//        private void removeMessage() {
+//            handler.removeMessages(MESSAGE_WHAT);
+//        }
+//
+//    }
 
     //Test 종료
     public void endTest(int index) {
