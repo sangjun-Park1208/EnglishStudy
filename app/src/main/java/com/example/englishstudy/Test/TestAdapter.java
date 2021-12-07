@@ -2,39 +2,26 @@ package com.example.englishstudy.Test;
 
 
 import android.content.Context;
-import android.graphics.Color;
-import android.text.method.KeyListener;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.BaseInputConnection;
-import android.view.inputmethod.InputConnection;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.englishstudy.R;
 import com.example.englishstudy.global.DBHelper;
 import com.example.englishstudy.global.Stage_Item;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 //RecyclerView 를 위한 Adapter
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
 {
-    private int oldPosition = -1;
-    private int selectedPosition = -1;
 
-
-    private ArrayList<Stage_Item> mDayList = new ArrayList<Stage_Item>();
+    private ArrayList<Stage_Item> mDayList;
     private Context mContext;
     private DBHelper mDBHelper;
 
@@ -64,8 +51,6 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
         viewHolder.text_state.setText(mDayList.get(position).getRunning());
         viewHolder.test_StageProgress.setProgress(mDayList.get(position).getCorrect());
         viewHolder.test_tv_Running.setText("진행률: "+correct);
-        //isSelected(viewHolder,position);
-        //selectOnKey(viewHolder,position);
     }
 
     @Override
@@ -113,44 +98,5 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
-
-//    public void isSelected(ViewHolder viewHolder, int position){
-//        if(selectedPosition == position){
-//            viewHolder.itemView.setBackgroundColor(Color.GRAY);
-//        }
-//        else{
-//            viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
-//        }
-//
-//        viewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                oldPosition = selectedPosition;
-//                selectedPosition = position;
-//
-//                notifyItemChanged(oldPosition);
-//                notifyItemChanged(selectedPosition);
-//                return false;
-//            }
-//
-//        });
-//
-//    }
-
-//    public void selectOnKey(ViewHolder viewHolder, int position){
-//
-//        viewHolder.itemView.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                if((event.getAction() == KeyEvent.ACTION_DOWN)&&(keyCode == KeyEvent.KEYCODE_ENTER)){
-//                    isSelected(viewHolder,position);
-//
-//                }
-//                return false;
-//            }
-//        });
-//
-//    }
-
 
 }

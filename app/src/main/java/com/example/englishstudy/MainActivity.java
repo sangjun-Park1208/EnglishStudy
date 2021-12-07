@@ -146,11 +146,14 @@ public class MainActivity extends AppCompatActivity {
         main_tv_Progress.setText("오늘의 달성률: "+correct+"/900");
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(correct);
+
+        Log.d("TEST","MainActivity ProgressBar: "+correct+"/900 설정 완료");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        Log.d("TEST","MainActivity onRestart");
         setProgressBar();
     }
 }

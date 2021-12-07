@@ -3,20 +3,14 @@ package com.example.englishstudy.Test;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.BaseInputConnection;
-import android.view.inputmethod.InputConnection;
-import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -78,10 +72,19 @@ public class TestList extends AppCompatActivity {
             if (isMark == true) {
                 mDayList.add(new Stage_Item("Stage" + Integer.toString(day + 1), "Challenge",correct,wrong));
 
+//                Log.d("TEST","Stage:" + Integer.toString(day + 1));
+//                Log.d("TEST","running:Challenge");
+//                Log.d("TEST","correct:"+correct);
+//                Log.d("TEST","correct:"+wrong);
             }
             //Mark 가 없을 경우 모두 정답 : Complete 표시
             else {
                 mDayList.add(new Stage_Item("Stage" + Integer.toString(day + 1), "Complete",correct,wrong));
+//
+//                Log.d("TEST","Stage:" + Integer.toString(day + 1));
+//                Log.d("TEST","running:Complete");
+//                Log.d("TEST","correct:"+correct);
+//                Log.d("TEST","correct:"+wrong);
             }
         }
 
@@ -104,6 +107,8 @@ public class TestList extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int curPos, Context mContext) {
 
+                        Log.d("TEST","Stage"+(curPos+1)+"클릭");
+
                         //AlertDialog 를 이용한 팝업 창
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                         String[] strChoiceItems = {"O", "X"};
@@ -117,11 +122,15 @@ public class TestList extends AppCompatActivity {
                                     //이때 현재 선택된 Stage 값을 Intent 로 전달
                                     Intent intent = new Intent(view.getContext(), TestActivity.class);
                                     intent.putExtra("Stage", curPos);
+
+                                    Log.d("TEST","Stage"+(curPos+1)+"로 이동");
+
                                     startActivity(intent);
                                 }
                                 //X가 선택되었을 때
                                 else if (position == 1) {
                                     //현상 유지
+                                    Log.d("TEST","Stage"+(curPos+1)+"로 이동 안함");
                                 }
                             }
                         });
@@ -132,31 +141,6 @@ public class TestList extends AppCompatActivity {
 
                 }
         );
-
-//        bt_select.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Stage_Item stage_item = mDayList.get(clickPosition);
-//            }
-//        });
-//
-//        bt_down.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                clickPosition++;
-//            }
-//        });
-//
-//        bt_up.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Stage_Item stage_item = mDayList.get(clickPosition);
-//                stage_item.;
-//                clickPosition--;
-//            }
-//        });
-
 
     }
 
@@ -171,56 +155,31 @@ public class TestList extends AppCompatActivity {
         int correct =  intent.getIntExtra("correct",0);
         int wrong =  intent.getIntExtra("wrong",0);
 
+        Log.d("TEST","TestList onNewIntent");
+        Log.d("TEST","Test 결과: 정답"+correct+" 오답:"+wrong+" 전달 완료");
+
         //모두 정답일 경우 Complete / 아닐 경우 : Challenge
         if(correct==30){
             running = "Complete";
+
+            //stage, running, 정답 개수, 오답 개수
+            //해당 Stage Update
+            Stage_Item stageItem = new Stage_Item(stage,running,correct,wrong);
+            mDayList.set(intent.getIntExtra("stage",0),stageItem);
+
+            //수정한 결과 RecyclerView 에 반영
+            if (testAdapter == null) {
+                testAdapter = new TestAdapter(mDayList, this);
+            }
+            recyclerView.setAdapter(testAdapter);
+
+            Log.d("TEST","해당 Stage Test 결과 RecyclerView 에 반영 완료");
+
         }
         else{
             running = "Challenge";
         }
 
-        //stage, running, 정답 개수, 오답 개수
-        //해당 Stage Update
-        Stage_Item stageItem = new Stage_Item(stage,running,correct,wrong);
-        mDayList.set(intent.getIntExtra("stage",0),stageItem);
-
-        //수정한 결과 RecyclerView 에 반영
-        if (testAdapter == null) {
-            testAdapter = new TestAdapter(mDayList, this);
-        }
-        recyclerView.setAdapter(testAdapter);
 
     }
-//    public void simulateSelectPress(View v){
-//
-//        InputConnection inputConnection = new BaseInputConnection(v, true);
-//        KeyEvent keyEvent = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_CALL);
-//        inputConnection.sendKeyEvent(keyEvent);
-//
-//
-//    }
-//
-//
-//    public void simulateUpPress(View v){
-//
-//        InputConnection inputConnection = new BaseInputConnection(v, true);
-//        KeyEvent keyEvent = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_UP);
-//        inputConnection.sendKeyEvent(keyEvent);
-//        KeyEvent keyEvent1 = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_UP);
-//        inputConnection.sendKeyEvent(keyEvent1);
-//
-//    }
-//
-//    public void simulateDownPress(View v){
-//
-//        InputConnection inputConnection = new BaseInputConnection(v, true);
-//        KeyEvent keyEvent = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_DOWN);
-//        inputConnection.sendKeyEvent(keyEvent);
-//        KeyEvent keyEvent1 = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_DOWN);
-//        inputConnection.sendKeyEvent(keyEvent1);
-//
-//    }
-
-
-
 }
