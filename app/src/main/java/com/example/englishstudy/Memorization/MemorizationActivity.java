@@ -78,20 +78,21 @@ public class MemorizationActivity extends AppCompatActivity {
         mem_known = findViewById(R.id.mem_known);
         mem_unknown = findViewById(R.id.mem_unknown);
         // 레이아웃의 참조들과 연결
-
+        Log.d("MEMLOG","레이아웃들과 참조 연결 완료");
         intent = getIntent();
         selected_StageNum = intent.getIntExtra("Stage",0);
         wordIndex = selected_StageNum*30;
         progressNum = 1;
 
         mem_StageNum2.setText(Integer.toString(selected_StageNum + 1));
+        Log.d("MEMLOG","Stage 번호 설정 완료");
         // 선택한 StageNumber를 Intent로 받아, 기본값을 0으로 설정함(Stage1, Stage2, ... , Stage30)
 
         mDBHelper = new DBHelper(this);
         mWordItem = new ArrayList<>();
         mWordItem = mDBHelper.getWordList();
         // DB에서 단어 데이터 불러오기
-
+        Log.d("MEMLOG","DB에서 단어 불러오기 완료");
 
 
 
@@ -154,6 +155,7 @@ public class MemorizationActivity extends AppCompatActivity {
                     wordIndex++;
                     index++;
                     mem_progressBar2.setProgress(index);
+                    Log.d("MEMLOG","[외웠습니다] 버튼 클릭됨");
                 }
                 else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
@@ -184,11 +186,12 @@ public class MemorizationActivity extends AppCompatActivity {
                     mem_meaning.setText(mWordItem.get(index).getMeaning());
                     mem_progressText.setText(""+progressNum++);
                     mWordItem.get(index).setIsMark(1); // X 버튼 누르면 isMarked 를 1로
-//                    Log.d("X버튼클릭시 : ",  String.valueOf(mWordItem.get(wordIndex).getIsMark()));
                     mDBHelper.UpdateWord(mWordItem.get(wordIndex).getDay(), mWordItem.get(wordIndex).getWordNum(), 1, mWordItem.get(wordIndex).getWord(), mWordItem.get(wordIndex).getMeaning(), mWordItem.get(wordIndex).getId());
                     wordIndex++;
                     index++;
                     mem_progressBar2.setProgress(index);
+                    Log.d("MEMLOG","[못 외웠습니다] 버튼 클릭됨");
+
 
                 }
                 else{

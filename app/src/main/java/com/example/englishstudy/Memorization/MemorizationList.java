@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -55,10 +56,7 @@ public class MemorizationList extends AppCompatActivity {
 
             for(int j = (i - 1) * 30; j < (i - 1) * 30 +30; j++){
                 if(mWordItem.get(j).getIsMark() == 0) {
-//                    check = 0;
                     progress++;
-
-
                 }
             }
             if(progress == 30) {
@@ -68,7 +66,6 @@ public class MemorizationList extends AppCompatActivity {
             else {
                 mWordItem = mDBHelper.getWordList();
                 mStageList.add(new Stage_Item("" + i, "Try", progress, nothing));
-//            check = 1;
             }
         }
         memorizationAdapter.setmStageList(mStageList);
@@ -83,6 +80,7 @@ public class MemorizationList extends AppCompatActivity {
                     builder.setItems(strChoiceItems, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int dialogposition) {
+                            Log.d("MEMLOG","암기 완료되었음");
                             if (dialogposition == 0) {}
                         }
                     });
@@ -97,6 +95,7 @@ public class MemorizationList extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int dialogposition) {
                             if (dialogposition == 0) {
+                                Log.d("MEMLOG","암기 시작");
                                 Intent intent = new Intent(v.getContext(), MemorizationActivity.class);
                                 intent.putExtra("Stage", curPos);
                                 startActivity(intent);
@@ -122,7 +121,6 @@ public class MemorizationList extends AppCompatActivity {
     }
 
     private boolean memorizationCheck(int position){
-//        mWordItem = mDBHelper.getWordList();
         for(int i=position*30;i<position*30+30;i++) {
             if(mWordItem.get(i).getIsMark()==1)
                 return true;

@@ -1,5 +1,6 @@
 package com.example.englishstudy.Memorization;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,6 @@ public class MemorizationDrawerAdapter extends RecyclerView.Adapter<Memorization
 
     private ArrayList<MemorizationVocaItem> mVocaList;
     MemorizationVocaItemClickListener listener;
-
-//    public MemorizationDrawerAdapter(ArrayList<MemorizationVocaItem> mVocaList, MemorizationVocaItemClickListener listener) {
-//        this.mVocaList = mVocaList;
-//        this.listener = listener;
-//    }
 
     @NonNull
     @Override
@@ -71,6 +67,7 @@ public class MemorizationDrawerAdapter extends RecyclerView.Adapter<Memorization
                     int position=getAdapterPosition();
                     if(listener!=null){
                         listener.onItemClick(ViewHolder.this,v,position);
+                        Log.d("MEMLOG","[목록] 내비게이션 바 실행");
                     }
                 }
             });

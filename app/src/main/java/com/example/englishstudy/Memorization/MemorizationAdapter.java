@@ -1,6 +1,7 @@
 package com.example.englishstudy.Memorization;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,14 +66,13 @@ public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapte
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         holder.mem_StageNum.setText(mStageList.get(position).getStage());
         holder.mem_State.setText(mStageList.get(position).getRunning());
-        holder.mem_progressBar1.setProgress(mStageList.get(position).getCorrect()); // 이거 왜 널포인터 익셉션,,?
+        holder.mem_progressBar1.setProgress(mStageList.get(position).getCorrect());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mem_StageNum;
         private TextView mem_State;
         private ProgressBar mem_progressBar1;
-        private ProgressBar mem_progressBar2;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -80,7 +80,7 @@ public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapte
             mem_StageNum = itemView.findViewById(R.id.mem_stageNum1);
             mem_State = itemView.findViewById(R.id.mem_State);
             mem_progressBar1 = itemView.findViewById(R.id.mem_progressBar1);
-//            mem_progressBar2 = itemView.findViewById(R.id.mem_progressBar2);
+            Log.d("MEMLOG","Progress Bar DB연동 완료");
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -88,6 +88,7 @@ public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapte
                     int curPos = getAdapterPosition();
                     if(curPos != RecyclerView.NO_POSITION){
                         onItemClickListener.onItemClick(ViewHolder.this, v, curPos);
+                        Log.d("MEMLOG","Stage " + curPos + "실행");
                     }
                 }
             });
@@ -100,6 +101,6 @@ public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapte
     @Override
     public int getItemCount() {
         return mStageList.size();
-    } // 총 Stage 개수 리턴
+    }
 
 }

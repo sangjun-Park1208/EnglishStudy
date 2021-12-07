@@ -98,7 +98,7 @@ public class TestActivity extends AppCompatActivity {
         intent = getIntent();
         select_Stage = intent.getIntExtra("Stage", 0);
 
-        Log.d("TEST","Stage"+(select_Stage+1)+"이동 완료.");
+        Log.d("TESTLOG","Stage"+(select_Stage+1)+"이동 완료.");
 
         //Layout 상단에 Stage 표시
         tv_Stage = findViewById(R.id.tv_Stage);
@@ -160,7 +160,7 @@ public class TestActivity extends AppCompatActivity {
                 //1번 클릭
                 if (v == bt_select1 || v == cv_select1) {
 
-                    Log.d("TEST","1번 클릭");
+                    Log.d("TESTLOG","1번 클릭");
 
                     stopTimerTask();
                     //정답일 경우 해당 카드뷰 빨간색 표시, selectWrongAnswer();
@@ -186,7 +186,7 @@ public class TestActivity extends AppCompatActivity {
                 //2번 클릭
                 else if (v == bt_select2 || v == cv_select2) {
 
-                    Log.d("TEST","2번 클릭");
+                    Log.d("TESTLOG","2번 클릭");
 
                     stopTimerTask();
                     //틀렸을 경우
@@ -209,7 +209,7 @@ public class TestActivity extends AppCompatActivity {
                 //3번 클릭
                 else if (v == bt_select3 || v == cv_select3) {
 
-                    Log.d("TEST","3번 클릭");
+                    Log.d("TESTLOG","3번 클릭");
 
                     stopTimerTask();
                     //틀렸을 경우
@@ -231,7 +231,7 @@ public class TestActivity extends AppCompatActivity {
                 //4번 클릭
                 else if (v == bt_select4 || v == cv_select4) {
 
-                    Log.d("TEST","4번 클릭");
+                    Log.d("TESTLOG","4번 클릭");
 
                     stopTimerTask();
                     //틀렸을 경우
@@ -326,7 +326,7 @@ public class TestActivity extends AppCompatActivity {
             endTest(index);
         }
         else{
-            Log.d("TEST","현재 진행:"+(index+1)+"/30");
+            Log.d("TESTLOG","현재 진행:"+(index+1)+"/30");
             //타이머 시작
             startTimerTask();
 
@@ -375,7 +375,7 @@ public class TestActivity extends AppCompatActivity {
     //정답을 골랐을 때
     public void selectCorrectAnswer() {
 
-        Log.d("TEST","정답");
+        Log.d("TESTLOG","정답");
 
         Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
         toast.setView(imageView_Correct);
@@ -391,7 +391,7 @@ public class TestActivity extends AppCompatActivity {
     //오답을 골랐을 때
     public void selectWrongAnswer() {
 
-        Log.d("TEST","오답");
+        Log.d("TESTLOG","오답");
 
         Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
         toast.setView(imageView_Wrong);
@@ -404,19 +404,19 @@ public class TestActivity extends AppCompatActivity {
                 switch (i) {
                     case 0:
                         cv_select1.setBackgroundColor(Color.BLUE);
-                        Log.d("TEST","정답은 1번");
+                        Log.d("TESTLOG","정답은 1번");
                         break;
                     case 1:
                         cv_select2.setBackgroundColor(Color.BLUE);
-                        Log.d("TEST","정답은 2번");
+                        Log.d("TESTLOG","정답은 2번");
                         break;
                     case 2:
                         cv_select3.setBackgroundColor(Color.BLUE);
-                        Log.d("TEST","정답은 3번");
+                        Log.d("TESTLOG","정답은 3번");
                         break;
                     case 3:
                         cv_select4.setBackgroundColor(Color.BLUE);
-                        Log.d("TEST","정답은 4번");
+                        Log.d("TESTLOG","정답은 4번");
                         break;
                 }
                 break;
@@ -433,7 +433,7 @@ public class TestActivity extends AppCompatActivity {
 
     //시간초과 되었을 때
     public void selectNothing_Timeout() {
-        Log.d("TEST","시간초과");
+        Log.d("TESTLOG","시간초과");
         Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
         toast.setView(imageView_TimeOut);
         toast.setGravity(Gravity.CENTER,50, 50);
@@ -445,19 +445,19 @@ public class TestActivity extends AppCompatActivity {
                 switch (i) {
                     case 0:
                         cv_select1.setBackgroundColor(Color.BLUE);
-                        Log.d("TEST","정답은 1번");
+                        Log.d("TESTLOG","정답은 1번");
                         break;
                     case 1:
                         cv_select2.setBackgroundColor(Color.BLUE);
-                        Log.d("TEST","정답은 2번");
+                        Log.d("TESTLOG","정답은 2번");
                         break;
                     case 2:
                         cv_select3.setBackgroundColor(Color.BLUE);
-                        Log.d("TEST","정답은 3번");
+                        Log.d("TESTLOG","정답은 3번");
                         break;
                     case 3:
                         cv_select4.setBackgroundColor(Color.BLUE);
-                        Log.d("TEST","정답은 4번");
+                        Log.d("TESTLOG","정답은 4번");
                         break;
                 }
                 break;
@@ -499,13 +499,13 @@ public class TestActivity extends AppCompatActivity {
         if (index != 30) {
             Intent intent = new Intent(this, TestList.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Log.d("TEST","30단어 다 Test 하지않고 종료");
+            Log.d("TESTLOG","30단어 다 Test 하지않고 종료");
             startActivity(intent);
             finish();
         }
         //30단어를 다 Test 했을 경우
         else {
-            Log.d("TEST","30단어 Test 하고 종료");
+            Log.d("TESTLOG","30단어 Test 하고 종료");
             //무작위로 섞었던 30단어 정렬
             Collections.sort(testWordItems, new WordItemIdComparator());
 
@@ -536,10 +536,10 @@ public class TestActivity extends AppCompatActivity {
             intent.putExtra("correct", correct);
             intent.putExtra("wrong", wrong);
 
-            Log.d("TEST","Stage:"+(select_Stage+1));
-            Log.d("TEST","정답:"+correct);
-            Log.d("TEST","오답:"+wrong);
-            Log.d("TEST","결과창에 전달");
+            Log.d("TESTLOG","Stage:"+(select_Stage+1));
+            Log.d("TESTLOG","정답:"+correct);
+            Log.d("TESTLOG","오답:"+wrong);
+            Log.d("TESTLOG","결과창에 전달");
 
             startActivity(intent);
             finish();
@@ -564,7 +564,7 @@ public class TestActivity extends AppCompatActivity {
             toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
             toast.show();
 
-            Log.d("TEST","뒤로가기 한 번 클릭");
+            Log.d("TESTLOG","뒤로가기 한 번 클릭");
             return;
         }
         // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
@@ -574,7 +574,7 @@ public class TestActivity extends AppCompatActivity {
             toast.cancel();
             toast = Toast.makeText(this,"Test 종료",Toast.LENGTH_LONG);
             toast.show();
-            Log.d("TEST","뒤로가기 2.5초 내 한 번 더 클릭 : Test 종료");
+            Log.d("TESTLOG","뒤로가기 2.5초 내 한 번 더 클릭 : Test 종료");
         }
     }
 }
