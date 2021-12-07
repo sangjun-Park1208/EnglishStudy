@@ -162,23 +162,23 @@ public class TestList extends AppCompatActivity {
         if(correct==30){
             running = "Complete";
 
-            //stage, running, 정답 개수, 오답 개수
-            //해당 Stage Update
-            Stage_Item stageItem = new Stage_Item(stage,running,correct,wrong);
-            mDayList.set(intent.getIntExtra("stage",0),stageItem);
-
-            //수정한 결과 RecyclerView 에 반영
-            if (testAdapter == null) {
-                testAdapter = new TestAdapter(mDayList, this);
-            }
-            recyclerView.setAdapter(testAdapter);
-
-            Log.d("TESTLOG","해당 Stage Test 결과 RecyclerView 에 반영 완료");
-
         }
         else{
             running = "Challenge";
         }
+
+        //stage, running, 정답 개수, 오답 개수
+        //해당 Stage Update
+        Stage_Item stageItem = new Stage_Item(stage,running,correct,wrong);
+        mDayList.set(intent.getIntExtra("stage",0),stageItem);
+
+        //수정한 결과 RecyclerView 에 반영
+        if (testAdapter == null) {
+            testAdapter = new TestAdapter(mDayList, this);
+        }
+        recyclerView.setAdapter(testAdapter);
+
+        Log.d("TESTLOG","해당 Stage Test 결과 RecyclerView 에 반영 완료");
 
 
     }
