@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.englishstudy.R;
@@ -71,6 +72,8 @@ public class ReviewList extends AppCompatActivity {
             public void onItemClick(ReviewAdapter.ViewHolder holder, View view, int position) {
                 if (!stage_check(position)) {//반복할 단어가 없으면
                     //다이얼로그
+                    Log.d("REMLOG","Stage"+(position+1)+"클릭");
+                    Log.d("REMLOG","반복할 단어가 없을때 다이얼로그");
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     String[] strChoiceItems = {"확인"};
                     builder.setTitle("이미 완료하였습니다.");
@@ -88,6 +91,8 @@ public class ReviewList extends AppCompatActivity {
                 }
                 else {
                     //다이얼로그
+                    Log.d("REMLOG","Stage"+(position+1)+"클릭");
+                    Log.d("REMLOG","반복할 단어가 있을때 다이얼로그");
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     String[] strChoiceItems = {"예", "아니오"};
                     builder.setTitle("복습을 시작하시겠습니까?");
@@ -96,6 +101,7 @@ public class ReviewList extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int dialogposition) {
                             //'예'가 선택되었을 때
                             if (dialogposition == 0) {
+                                Log.d("REMLOG","예를 선택하면 리뷰액티비티 실행");
                                 //ReviewActivity 로 이동
                                 //이때 현재 선택된 Stage 값을 Intent 로 전달. 스테이지 값을 통해 DB에서 단어 위치 찾기
                                 Intent intent = new Intent(view.getContext(), ReviewActivity.class);
@@ -104,6 +110,7 @@ public class ReviewList extends AppCompatActivity {
                             }
                             //'아니오'가 선택되었을 때
                             else if (dialogposition == 1) {
+                                Log.d("REMLOG","아니오를 선택하면 그대로 현상유지");
                                 //현상 유지
                             }
                         }
