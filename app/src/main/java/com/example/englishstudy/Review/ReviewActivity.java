@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -64,6 +65,7 @@ public class ReviewActivity extends AppCompatActivity {
         intent = getIntent();
         stage = intent.getIntExtra("Stage", 0);
         index = stage * 30;//DB에 접근할 index
+        Log.d("REMLOG","Review 시작(Stage"+(stage+1)+")");
 
         //텍스트뷰 id 연결
         txt_stage = (TextView) findViewById(R.id.memorization_text);
@@ -150,6 +152,7 @@ public class ReviewActivity extends AppCompatActivity {
         btn_1.setOnClickListener(new View.OnClickListener() {//외웠어요 버튼 클릭리스너
             @Override
             public void onClick(View view) {
+                Log.d("REMLOG","외웠어요 버튼");
                 if (!end(index)) {//ismarked 0으로 바꿔주기
                     WordItem cur = mWordItem.get(check);
                     mDBHelper.UpdateWord(cur.getDay(), cur.getWordNum(), 0, cur.getWord(), cur.getMeaning(), cur.getId());
@@ -170,6 +173,7 @@ public class ReviewActivity extends AppCompatActivity {
                     check = i;
                 } else if (progress > total && end(index)) {
                     //다이얼로그
+                    Log.d("REMLOG","모든 단어가 끝났을 경우 다이얼로그");
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     String[] strChoiceItems = {"확인"};
                     builder.setTitle("완료하였습니다.");
@@ -178,6 +182,7 @@ public class ReviewActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int dialogposition) {
                             // 완료되었기 때문에 스테이지 선택하는 액티비티로
                             if (dialogposition == 0) {
+                                Log.d("REMLOG","Review Stage 시작");
                                 startActivity(new Intent(view.getContext(), ReviewList.class));
                             }
                         }
@@ -187,6 +192,7 @@ public class ReviewActivity extends AppCompatActivity {
                     builder.show();
                 } else {
                     //다이얼로그
+                    Log.d("REMLOG","아직 단어가 남은 경우 다이얼로그");
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     String[] strChoiceItems = {"예", "아니오"};
                     builder.setTitle("다시 시작하시겠습니까?");
@@ -195,6 +201,7 @@ public class ReviewActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int position) {
                             //예가 선택되었을 때
                             if (position == 0) {
+                                Log.d("REMLOG","예가 선택되면 재실행");
                                 //ReviewActivity 로 이동
                                 //이때 현재 선택된 Stage 값을 Intent 로 전달
                                 Intent intent = new Intent(view.getContext(), ReviewActivity.class);
@@ -203,6 +210,7 @@ public class ReviewActivity extends AppCompatActivity {
                             }
                             //아니오가 선택되었을 때 : 스테이지 선택 액티비티로 이동
                             else if (position == 1) {
+                                Log.d("REMLOG","아니오가 선택되면 Review Stage 시작");
                                 startActivity(new Intent(view.getContext(), ReviewList.class));
                             }
                         }
@@ -219,6 +227,7 @@ public class ReviewActivity extends AppCompatActivity {
         btn_2.setOnClickListener(new View.OnClickListener() {//버튼 클릭리스너
             @Override
             public void onClick(View view) {
+                Log.d("REMLOG","못 외웠어요 버튼");
                 //다음 복습할 단어의 인덱스 구하기
                 for (i = check + 1; i < index + 30; i++) {
                     if (mWordItem.get(i).getIsMark() == 1) {
@@ -235,6 +244,7 @@ public class ReviewActivity extends AppCompatActivity {
                     check = i;
                 } else {
                     //다이얼로그
+                    Log.d("REMLOG","아직 단어가 남은 경우 다이얼로그");
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     String[] strChoiceItems = {"예", "아니오"};
                     builder.setTitle("다시 시작하시겠습니까?");
@@ -243,6 +253,7 @@ public class ReviewActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int position) {
                             //예가 선택되었을 때
                             if (position == 0) {
+                                Log.d("REMLOG","예가 선택되면 재실행");
                                 //ReviewActivity 로 이동
                                 //이때 현재 선택된 Stage 값을 Intent 로 전달
                                 Intent intent = new Intent(view.getContext(), ReviewActivity.class);
@@ -251,6 +262,7 @@ public class ReviewActivity extends AppCompatActivity {
                             }
                             //아니오가 선택되었을 때 : 스테이지 선택 액티비티로 이동
                             else if (position == 1) {
+                                Log.d("REMLOG","아니오가 선택되면 Review Stage 시작");
                                 startActivity(new Intent(view.getContext(), ReviewList.class));
                             }
                         }
@@ -293,6 +305,7 @@ public class ReviewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){//뒤로가기 버튼을 눌렀을 경우 스테이지 액티비티 다시 만들기
+        Log.d("REMLOG","Back버튼 눌렀을 경우 리뷰리스트 액티비티가 destroy 되었기 때문에 create부터 실행");
         super.onBackPressed();
         startActivity(new Intent(this, ReviewList.class));
     }

@@ -92,12 +92,14 @@ public class MainActivity extends AppCompatActivity {
         review1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("REM","Review Stage 시작");
                 startActivity(new Intent(view.getContext(), ReviewList.class));
             }
         });
         review2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("REM","Review Stage 시작");
                 startActivity(new Intent(view.getContext(), ReviewList.class));
             }
         });
