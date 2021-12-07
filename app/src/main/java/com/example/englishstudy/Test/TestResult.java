@@ -34,10 +34,8 @@ public class TestResult extends AppCompatActivity {
         correct = intent.getIntExtra("correct", 0);
         wrong = intent.getIntExtra("wrong", 0);
 
-        Log.d("TEST","Stage:"+(stage+1));
-        Log.d("TEST","정답:"+correct);
-        Log.d("TEST","오답:"+wrong);
-        Log.d("TEST","결과창에 전달 완료");
+        Log.d("TESTLOG","TestResult");
+        Log.d("TESTLOG","결과창에 전달 완료");
 
         //TextView, Button 참조
         TextView test_tv_Stage = findViewById(R.id.test_tv_Stage);
@@ -62,11 +60,11 @@ public class TestResult extends AppCompatActivity {
                 intent.putExtra("correct", correct);
                 intent.putExtra("wrong", wrong);
 
-                Log.d("TEST","DONE 클릭");
-                Log.d("TEST","Stage:"+(stage+1));
-                Log.d("TEST","정답:"+correct);
-                Log.d("TEST","오답:"+wrong);
-                Log.d("TEST","TestList 에 전달");
+                Log.d("TESTLOG","DONE 클릭");
+                Log.d("TESTLOG","Stage:"+(stage+1));
+                Log.d("TESTLOG","정답:"+correct);
+                Log.d("TESTLOG","오답:"+wrong);
+                Log.d("TESTLOG","TestList 에 전달");
 
                 startActivity(intent);
                 finish();
@@ -81,8 +79,8 @@ public class TestResult extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), TestActivity.class);
                 intent.putExtra("Stage",stage);
 
-                Log.d("TEST","Retry 클릭");
-                Log.d("TEST","Stage:"+(stage+1)+"재시작");
+                Log.d("TESTLOG","Retry 클릭");
+                Log.d("TESTLOG","Stage:"+(stage+1)+"재시작");
 
                 startActivity(intent);
                 finish();

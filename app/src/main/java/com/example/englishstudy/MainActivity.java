@@ -147,13 +147,13 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(correct);
 
-        Log.d("TEST","MainActivity ProgressBar: "+correct+"/900 설정 완료");
+        Log.d("TESTLOG","MainActivity ProgressBar: "+correct+"/900 설정 완료");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d("TEST","MainActivity onRestart");
+        Log.d("TESTLOG","MainActivity onRestart");
         setProgressBar();
     }
 }

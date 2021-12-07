@@ -107,7 +107,7 @@ public class TestList extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int curPos, Context mContext) {
 
-                        Log.d("TEST","Stage"+(curPos+1)+"클릭");
+                        Log.d("TESTLOG","Stage"+(curPos+1)+"클릭");
 
                         //AlertDialog 를 이용한 팝업 창
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -123,14 +123,14 @@ public class TestList extends AppCompatActivity {
                                     Intent intent = new Intent(view.getContext(), TestActivity.class);
                                     intent.putExtra("Stage", curPos);
 
-                                    Log.d("TEST","Stage"+(curPos+1)+"로 이동");
+                                    Log.d("TESTLOG","Stage"+(curPos+1)+"로 이동");
 
                                     startActivity(intent);
                                 }
                                 //X가 선택되었을 때
                                 else if (position == 1) {
                                     //현상 유지
-                                    Log.d("TEST","Stage"+(curPos+1)+"로 이동 안함");
+                                    Log.d("TESTLOG","Stage"+(curPos+1)+"로 이동 안함");
                                 }
                             }
                         });
@@ -155,8 +155,8 @@ public class TestList extends AppCompatActivity {
         int correct =  intent.getIntExtra("correct",0);
         int wrong =  intent.getIntExtra("wrong",0);
 
-        Log.d("TEST","TestList onNewIntent");
-        Log.d("TEST","Test 결과: 정답"+correct+" 오답:"+wrong+" 전달 완료");
+        Log.d("TESTLOG","TestList onNewIntent");
+        Log.d("TESTLOG","Test 결과: 정답"+correct+" 오답:"+wrong+" 전달 완료");
 
         //모두 정답일 경우 Complete / 아닐 경우 : Challenge
         if(correct==30){
@@ -173,7 +173,7 @@ public class TestList extends AppCompatActivity {
             }
             recyclerView.setAdapter(testAdapter);
 
-            Log.d("TEST","해당 Stage Test 결과 RecyclerView 에 반영 완료");
+            Log.d("TESTLOG","해당 Stage Test 결과 RecyclerView 에 반영 완료");
 
         }
         else{
