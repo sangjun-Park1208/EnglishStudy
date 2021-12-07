@@ -78,6 +78,7 @@ public class TestActivity extends AppCompatActivity {
     private TextView tv_progress;
     private ImageView imageView_Correct;
     private ImageView imageView_Wrong;
+    private ImageView imageView_TimeOut;
     int index = 0;
     int select_Stage;
 
@@ -96,6 +97,10 @@ public class TestActivity extends AppCompatActivity {
 
         imageView_Wrong = new ImageView(getApplicationContext());
         imageView_Wrong.setImageResource(R.drawable.image_wrong_retro);
+
+        imageView_TimeOut = new ImageView(getApplicationContext());
+        imageView_TimeOut.setImageResource(R.drawable.image_timeout_retro);
+
 
         //선택한 Stage 번호를 Intent 로 받음
         //0: Stage 1, 1: Stage 2 ... 29: Stage 30
@@ -413,10 +418,10 @@ public class TestActivity extends AppCompatActivity {
 
     //시간초과 되었을 때
     public void selectNothing_Timeout() {
-//        Toast toast = Toast.makeText(getApplicationContext(), "시간이 초과되었습니다.", Toast.LENGTH_SHORT);
-//        //toast.setView(imageView);
-//        toast.setGravity(Gravity.CENTER, 50, 50);
-//        toast.show();
+        Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
+        toast.setView(imageView_TimeOut);
+        toast.setGravity(Gravity.CENTER,50, 50);
+        toast.show();
 
         //1,2,3,4번 중 정답을 찾아 파란색으로 표시
         for (int i = 0; i < 4; i++) {
