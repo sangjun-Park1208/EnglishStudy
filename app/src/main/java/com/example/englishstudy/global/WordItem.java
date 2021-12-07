@@ -9,20 +9,8 @@ public class WordItem {
     private String word;
     private String meaning;
 
-//
-//    public WordItem(int id, int day, int wordNum, int isMark, String word, String meaning) {
-//        this.id = id;
-//        this.day = day;
-//        this.wordNum = wordNum;
-//        this.isMark = isMark;
-//        this.word = word;
-//        this.meaning = meaning;
-//
-//    }
+    public WordItem() { }
 
-    public WordItem() {
-
-    }
     public int getId() {
         return id;
     }
