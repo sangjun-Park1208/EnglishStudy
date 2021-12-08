@@ -4,39 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.example.englishstudy.R;
-
 import com.example.englishstudy.global.DBHelper;
-import com.example.englishstudy.global.Stage_Item;
 import com.example.englishstudy.global.WordItem;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+
 
 public class MemorizationActivity extends AppCompatActivity {
 
@@ -213,37 +196,6 @@ public class MemorizationActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
-
-
-
-
-
-//        mSelectedItem = new ArrayList<>();
-//        for(int i=0; i<30;i++) {
-//            mSelectedItem.add(i, mWordItem.get(i+selected_StageNum * 30));
-//            Log.d("TAGTAG",mSelectedItem.get(i).getWord());
-//        }
-//        // 화면에 표시할 30개 단어 불러오기(Primary key 값으로 불러옴)
-//
-//        for(int i=0; i<30; i++){
-//            mem_word.setText(mWordItem.get(selected_StageNum+i).getWord());
-//            mem_meaning.setText(mWordItem.get(selected_StageNum+i).getMeaning());
-//
-//            mem_known.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//
-//
-//                }
-//            });
-//
-//        }
-
 
     }
 

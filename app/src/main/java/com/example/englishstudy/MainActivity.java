@@ -3,7 +3,6 @@ package com.example.englishstudy;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,14 +12,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.englishstudy.Memorization.MemorizationList;
-import com.example.englishstudy.Review.ReviewActivity;
 import com.example.englishstudy.Review.ReviewList;
 import com.example.englishstudy.Test.TestList;
 import com.example.englishstudy.global.DBHelper;
 import com.example.englishstudy.global.WordItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 

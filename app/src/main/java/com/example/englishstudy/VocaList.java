@@ -1,9 +1,5 @@
 package com.example.englishstudy;
 
-import com.example.englishstudy.global.DBHelper;
-import com.example.englishstudy.global.WordItem;
-
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class VocaList {//넣을 단어들

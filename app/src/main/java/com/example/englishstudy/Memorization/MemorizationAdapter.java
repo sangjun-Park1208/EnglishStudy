@@ -95,9 +95,6 @@ public class MemorizationAdapter extends RecyclerView.Adapter<MemorizationAdapte
         }
     }
 
-
-
-
     @Override
     public int getItemCount() {
         return mStageList.size();
